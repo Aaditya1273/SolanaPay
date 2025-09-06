@@ -1,0 +1,70 @@
+// Simplified Prisma schema for VPay
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  walletAddress String   @unique
+  name          String
+  kycStatus     KycStatus @default(PENDING)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  tasks         Task[]
+  rewards       Reward[]
+
+  @@map("users")
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  description String
+  amount      Float
+  status      TaskStatus @default(OPEN)
+  worker      String?    // Worker wallet address
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  creator     User       @relation(fields: [creatorId], references: [id])
+  creatorId   String
+
+  @@map("tasks")
+}
+
+model Reward {
+  id        String   @id @default(cuid())
+  userId    String
+  points    Int
+  reason    String?
+  createdAt DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("rewards")
+}
+
+// Enums
+enum KycStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum TaskStatus {
+  OPEN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}

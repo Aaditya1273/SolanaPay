@@ -1,0 +1,560 @@
+// SQLite-compatible Prisma schema
+// For quick development and testing
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  username      String   @unique
+  password      String
+  walletAddress String?  @unique
+  isVerified    Boolean  @default(false)
+  kycStatus     String   @default("NOT_STARTED") // NOT_STARTED, PENDING, APPROVED, REJECTED
+  bio           String?
+  avatar        String?
+  skills        String   @default("") // Comma-separated string: "javascript,react,nodejs"
+  totalEarnings Float    @default(0)
+  totalSpent    Float    @default(0)
+  rewardPoints  Int      @default(0)
+  tier          String   @default("Bronze")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  createdTasks     Task[] @relation("TaskCreator")
+  assignedTasks    Task[] @relation("TaskWorker")
+  applications     TaskApplication[]
+  userRewards      UserReward[]
+  userAchievements UserAchievement[]
+  transactions     Transaction[]
+  userActivities   UserActivity[]
+  rewardRecommendations RewardRecommendation[]
+  userPreferences  UserPreference[]
+  userQuests       UserQuest[]
+  streaks          Streak[]
+  userBadges       UserBadge[]
+  leaderboardEntries LeaderboardEntry[]
+  userLevel        UserLevel?
+  onrampTransactions OnrampTransaction[]
+  merchantSettlements MerchantSettlement[]
+  kycVerification  KYCVerification?
+  kycDocuments     KYCDocument[]
+
+  @@map("users")
+}
+
+model Task {
+  id            String     @id @default(cuid())
+  title         String
+  description   String
+  category      String
+  budget        Float
+  deadline      DateTime
+  skills        String     @default("") // Comma-separated: "design,figma,ui"
+  status        String     @default("OPEN") // OPEN, IN_PROGRESS, COMPLETED, CANCELLED
+  location      String?    // Added location field
+  workerId      String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Relations
+  creator       User             @relation("TaskCreator", fields: [creatorId], references: [id])
+  creatorId     String
+  worker        User?            @relation("TaskWorker", fields: [workerId], references: [id])
+  applications  TaskApplication[]
+  attachments   TaskAttachment[]
+
+  @@map("tasks")
+}
+
+model TaskApplication {
+  id            String    @id @default(cuid())
+  taskId        String
+  applicantId   String
+  proposal      String
+  bidAmount     Float
+  estimatedTime String
+  status        String    @default("PENDING") // PENDING, ACCEPTED, REJECTED
+  appliedAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  task          Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  applicant     User      @relation(fields: [applicantId], references: [id])
+
+  @@unique([taskId, applicantId])
+  @@map("task_applications")
+}
+
+model TaskAttachment {
+  id        String   @id @default(cuid())
+  taskId    String
+  filename  String
+  filepath  String
+  mimetype  String
+  size      Int
+  uploadedAt DateTime @default(now())
+
+  // Relations
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@map("task_attachments")
+}
+
+model Reward {
+  id          String       @id @default(cuid())
+  title       String
+  description String
+  type        String       // DISCOUNT, CASHBACK, PHYSICAL_ITEM, DIGITAL_ITEM, EXPERIENCE
+  cost        Int          // Points required
+  value       Float?       // Monetary value if applicable
+  isActive    Boolean      @default(true)
+  stock       Int?         // Available quantity
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Relations
+  userRewards UserReward[]
+
+  @@map("rewards")
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  userId      String
+  type        String          // DEPOSIT, WITHDRAWAL, PAYMENT, REWARD, REFUND
+  amount      Float
+  currency    String          @default("VRC")
+  status      String          @default("PENDING") // PENDING, COMPLETED, FAILED, CANCELLED
+  fromAddress String?
+  toAddress   String?
+  txHash      String?
+  description String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  // Relations
+  user        User            @relation(fields: [userId], references: [id])
+
+  @@map("transactions")
+}
+
+model OnrampTransaction {
+  id              String    @id @default(cuid())
+  userId          String
+  fiatCurrency    String    // USD, EUR, GBP, etc.
+  cryptoCurrency  String    // ETH, USDC, USDT, DAI
+  fiatValue       Float     // Amount in fiat
+  cryptoValue     Float?    // Amount received in crypto
+  userAddress     String    // Destination wallet address
+  status          String    @default("INITIATED") // INITIATED, PENDING, PROCESSING, COMPLETED, FAILED, CANCELLED, EXPIRED
+  provider        String    @default("RAMP") // RAMP, TRANSAK
+  externalId      String?   // Our reference ID for the provider
+  rampPurchaseId  String?   // Ramp's purchase ID
+  rampUrl         String?   // Ramp widget URL
+  rampData        String?   // Full Ramp response data (JSON string)
+  metadata        String?   // Additional transaction metadata (JSON string)
+  completedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  user            User      @relation(fields: [userId], references: [id])
+
+  @@index([userId, status])
+  @@index([externalId])
+  @@index([rampPurchaseId])
+  @@map("onramp_transactions")
+}
+
+model MerchantSettlement {
+  id              String    @id @default(cuid())
+  userId          String    // Merchant user ID
+  settlementType  String    // FIAT, STABLECOIN
+  currency        String    // USD, EUR, USDC, USDT
+  amount          Float     // Settlement amount
+  status          String    @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
+  bankAccount     String?   // Bank account details for fiat settlements (JSON string)
+  walletAddress   String?   // Wallet address for crypto settlements
+  provider        String?   // Settlement provider (bank, exchange)
+  externalId      String?   // External settlement reference
+  fees            Float     @default(0)
+  netAmount       Float     // Amount after fees
+  processedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  user            User      @relation(fields: [userId], references: [id])
+
+  @@index([userId, status])
+  @@map("merchant_settlements")
+}
+
+model UserReward {
+  id         String       @id @default(cuid())
+  userId     String
+  rewardId   String
+  status     String       @default("PENDING") // PENDING, CLAIMED, REDEEMED, EXPIRED
+  claimedAt  DateTime     @default(now())
+  redeemedAt DateTime?
+
+  // Relations
+  user       User         @relation(fields: [userId], references: [id])
+  reward     Reward       @relation(fields: [rewardId], references: [id])
+
+  @@map("user_rewards")
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  points      Int      // Points awarded
+  condition   String   // JSON condition for unlocking
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  // Relations
+  userAchievements UserAchievement[]
+
+  @@map("achievements")
+}
+
+model UserAchievement {
+  id            String    @id @default(cuid())
+  userId        String
+  achievementId String
+  unlockedAt    DateTime  @default(now())
+
+  // Relations
+  user          User      @relation(fields: [userId], references: [id])
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
+
+
+// AI-Powered Rewards Engine Models
+
+model UserActivity {
+  id            String   @id @default(cuid())
+  userId        String
+  activityType  String   // LOGIN, PAYMENT_SENT, PAYMENT_RECEIVED, TASK_COMPLETED, TASK_CREATED, REWARD_CLAIMED
+  metadata      String?  // Additional activity data (JSON string)
+  amount        Float?   // Transaction amount if applicable
+  category      String?  // Activity category
+  timestamp     DateTime @default(now())
+  
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, timestamp])
+  @@map("user_activities")
+}
+
+model UserPreference {
+  id            String   @id @default(cuid())
+  userId        String
+  preferenceKey String   // REWARD_TYPE, SPENDING_CATEGORY, NOTIFICATION_FREQUENCY
+  preferenceValue String // JSON string of preference data
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, preferenceKey])
+  @@map("user_preferences")
+}
+
+model RewardRecommendation {
+  id              String   @id @default(cuid())
+  userId          String
+  rewardType      String   // CASHBACK, NFT, BONUS_TOKENS, DISCOUNT, EXCLUSIVE_ACCESS
+  title           String
+  description     String
+  value           Float    // Estimated value
+  confidence      Float    // AI confidence score (0-1)
+  reasoning       String   // AI reasoning for recommendation
+  metadata        String?  // Additional recommendation data (JSON string)
+  status          String   @default("PENDING") // PENDING, VIEWED, CLAIMED, EXPIRED
+  expiresAt       DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, status])
+  @@index([createdAt])
+  @@map("reward_recommendations")
+}
+
+model SpendingPattern {
+  id            String   @id @default(cuid())
+  userId        String
+  category      String   // PAYMENTS, TASKS, REWARDS, TRANSFERS
+  totalAmount   Float
+  frequency     Int      // Number of transactions
+  avgAmount     Float
+  lastActivity  DateTime
+  trendDirection String  // INCREASING, DECREASING, STABLE
+  periodStart   DateTime
+  periodEnd     DateTime
+  createdAt     DateTime @default(now())
+  
+  @@unique([userId, category, periodStart])
+  @@index([userId])
+  @@map("spending_patterns")
+}
+
+model RewardCampaign {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  rewardType    String   // CASHBACK, NFT, BONUS_TOKENS, DISCOUNT
+  targetCriteria String  // AI targeting criteria (JSON string)
+  rewardValue   Float
+  budget        Float
+  isActive      Boolean  @default(true)
+  startDate     DateTime
+  endDate       DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("reward_campaigns")
+}
+
+// Gamification Models
+
+model Quest {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  type          String   // DAILY, WEEKLY, MONTHLY, SPECIAL, ACHIEVEMENT
+  category      String   // PAYMENT, TASK, SOCIAL, STREAK, MILESTONE
+  difficulty    String   @default("EASY") // EASY, MEDIUM, HARD, LEGENDARY
+  requirements  String   // Quest completion requirements (JSON string)
+  rewards       String   // Rewards for completion (JSON string)
+  pointsReward  Int      @default(0)
+  xpReward      Int      @default(0)
+  isActive      Boolean  @default(true)
+  isRepeatable  Boolean  @default(false)
+  startDate     DateTime?
+  endDate       DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  userQuests    UserQuest[]
+
+  @@map("quests")
+}
+
+model UserQuest {
+  id            String    @id @default(cuid())
+  userId        String
+  questId       String
+  status        String    @default("ACTIVE") // ACTIVE, COMPLETED, FAILED, EXPIRED
+  progress      String    @default("{}")  // Progress tracking data (JSON string)
+  startedAt     DateTime  @default(now())
+  completedAt   DateTime?
+  expiresAt     DateTime?
+
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quest         Quest     @relation(fields: [questId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questId])
+  @@index([userId, status])
+  @@map("user_quests")
+}
+
+model Streak {
+  id            String   @id @default(cuid())
+  userId        String
+  type          String   // LOGIN, PAYMENT, TASK_COMPLETION, QUEST_COMPLETION
+  currentCount  Int      @default(0)
+  maxCount      Int      @default(0)
+  lastActivity  DateTime @default(now())
+  isActive      Boolean  @default(true)
+  multiplier    Float    @default(1.0) // Bonus multiplier for rewards
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, type])
+  @@index([userId, isActive])
+  @@map("streaks")
+}
+
+model NFTBadge {
+  id            String   @id @default(cuid())
+  name          String
+  description   String
+  image         String   // IPFS hash or URL
+  rarity        String   @default("COMMON") // COMMON, RARE, EPIC, LEGENDARY, MYTHIC
+  category      String   // ACHIEVEMENT, STREAK, QUEST, MILESTONE, SPECIAL
+  metadata      String   // Dynamic NFT metadata (JSON string)
+  mintCondition String   // Conditions for minting this badge (JSON string)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  userBadges    UserBadge[]
+
+  @@map("nft_badges")
+}
+
+model UserBadge {
+  id            String    @id @default(cuid())
+  userId        String
+  badgeId       String
+  tokenId       String?   // NFT token ID when minted
+  contractAddress String? // Smart contract address
+  txHash        String?   // Minting transaction hash
+  metadata      String    // Dynamic metadata at mint time (JSON string)
+  mintedAt      DateTime  @default(now())
+  isVisible     Boolean   @default(true)
+
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge         NFTBadge  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+  @@index([userId])
+  @@map("user_badges")
+}
+
+model Leaderboard {
+  id            String   @id @default(cuid())
+  type          String   // GLOBAL, WEEKLY, MONTHLY, QUEST, STREAK
+  category      String   // POINTS, XP, QUESTS_COMPLETED, STREAK_LENGTH, EARNINGS
+  period        String   @default("ALL_TIME") // ALL_TIME, WEEKLY, MONTHLY, DAILY
+  startDate     DateTime?
+  endDate       DateTime?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  entries       LeaderboardEntry[]
+
+  @@map("leaderboards")
+}
+
+model LeaderboardEntry {
+  id            String      @id @default(cuid())
+  leaderboardId String
+  userId        String
+  rank          Int
+  score         Float       // Points, XP, or other metric
+  metadata      String      @default("{}")  // Additional ranking data (JSON string)
+  updatedAt     DateTime    @updatedAt
+
+  // Relations
+  leaderboard   Leaderboard @relation(fields: [leaderboardId], references: [id], onDelete: Cascade)
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([leaderboardId, userId])
+  @@index([leaderboardId, rank])
+  @@map("leaderboard_entries")
+}
+
+model UserLevel {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  level         Int      @default(1)
+  xp            Int      @default(0)
+  xpToNext      Int      @default(100)
+  totalXp       Int      @default(0)
+  prestige      Int      @default(0) // Prestige level for advanced users
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_levels")
+}
+
+model QuestTemplate {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  type          String   // DAILY, WEEKLY, MONTHLY
+  category      String
+  difficulty    String
+  requirements  String   // Template requirements (JSON string)
+  rewards       String   // Template rewards (JSON string)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  @@map("quest_templates")
+}
+
+model KYCVerification {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  fullName      String
+  dateOfBirth   DateTime
+  address       String
+  phoneNumber   String?
+  nationality   String?
+  status        String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  reviewNotes   String?
+  submittedAt   DateTime @default(now())
+  reviewedAt    DateTime?
+  reviewedBy    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documents     KYCDocument[]
+
+  @@map("kyc_verifications")
+}
+
+model KYCDocument {
+  id            String   @id @default(cuid())
+  userId        String
+  type          String   // passport, drivers_license, national_id, selfie
+  filename      String
+  originalName  String
+  path          String
+  size          Int
+  mimeType      String
+  uploadedAt    DateTime @default(now())
+
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kycVerification KYCVerification @relation(fields: [userId], references: [userId])
+
+  @@map("kyc_documents")
+}
+
+model OTP {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  otp       String
+  type      String   // verification, reset
+  expiresAt DateTime
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@map("otps")
+}

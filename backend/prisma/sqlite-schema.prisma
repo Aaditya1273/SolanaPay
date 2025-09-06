@@ -1,0 +1,196 @@
+// SQLite-compatible Prisma schema
+// For quick development and testing
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  username      String   @unique
+  password      String
+  walletAddress String?  @unique
+  isVerified    Boolean  @default(false)
+  kycStatus     String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  bio           String?
+  avatar        String?
+  skills        String   @default("") // Comma-separated string: "javascript,react,nodejs"
+  totalEarnings Float    @default(0)
+  totalSpent    Float    @default(0)
+  rewardPoints  Int      @default(0)
+  tier          String   @default("Bronze")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  createdTasks     Task[] @relation("TaskCreator")
+  applications     TaskApplication[]
+  userRewards      UserReward[]
+  userAchievements UserAchievement[]
+  kycDocuments     KycDocument[]
+  transactions     Transaction[]
+
+  @@map("users")
+}
+
+model Task {
+  id            String     @id @default(cuid())
+  title         String
+  description   String
+  category      String
+  budget        Float
+  deadline      DateTime
+  skills        String     @default("") // Comma-separated: "design,figma,ui"
+  status        String     @default("OPEN") // OPEN, IN_PROGRESS, COMPLETED, CANCELLED
+  workerId      String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Relations
+  creator       User             @relation("TaskCreator", fields: [creatorId], references: [id])
+  creatorId     String
+  applications  TaskApplication[]
+  attachments   TaskAttachment[]
+
+  @@map("tasks")
+}
+
+model TaskApplication {
+  id            String    @id @default(cuid())
+  taskId        String
+  applicantId   String
+  proposal      String
+  bidAmount     Float
+  estimatedTime String
+  status        String    @default("PENDING") // PENDING, ACCEPTED, REJECTED
+  appliedAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  task          Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  applicant     User      @relation(fields: [applicantId], references: [id])
+
+  @@unique([taskId, applicantId])
+  @@map("task_applications")
+}
+
+model TaskAttachment {
+  id        String   @id @default(cuid())
+  taskId    String
+  filename  String
+  filepath  String
+  mimetype  String
+  size      Int
+  uploadedAt DateTime @default(now())
+
+  // Relations
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@map("task_attachments")
+}
+
+model Reward {
+  id          String       @id @default(cuid())
+  title       String
+  description String
+  type        String       // DISCOUNT, CASHBACK, PHYSICAL_ITEM, DIGITAL_ITEM, EXPERIENCE
+  cost        Int          // Points required
+  value       Float?       // Monetary value if applicable
+  isActive    Boolean      @default(true)
+  stock       Int?         // Available quantity
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Relations
+  userRewards UserReward[]
+
+  @@map("rewards")
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  userId      String
+  type        String          // DEPOSIT, WITHDRAWAL, PAYMENT, REWARD, REFUND
+  amount      Float
+  currency    String          @default("VRC")
+  status      String          @default("PENDING") // PENDING, COMPLETED, FAILED, CANCELLED
+  fromAddress String?
+  toAddress   String?
+  txHash      String?
+  description String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  // Relations
+  user        User            @relation(fields: [userId], references: [id])
+
+  @@map("transactions")
+}
+
+model UserReward {
+  id         String       @id @default(cuid())
+  userId     String
+  rewardId   String
+  status     String       @default("PENDING") // PENDING, CLAIMED, REDEEMED, EXPIRED
+  claimedAt  DateTime     @default(now())
+  redeemedAt DateTime?
+
+  // Relations
+  user       User         @relation(fields: [userId], references: [id])
+  reward     Reward       @relation(fields: [rewardId], references: [id])
+
+  @@map("user_rewards")
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  points      Int      // Points awarded
+  condition   String   // JSON condition for unlocking
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  // Relations
+  userAchievements UserAchievement[]
+
+  @@map("achievements")
+}
+
+model UserAchievement {
+  id            String    @id @default(cuid())
+  userId        String
+  achievementId String
+  unlockedAt    DateTime  @default(now())
+
+  // Relations
+  user          User      @relation(fields: [userId], references: [id])
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
+
+model KycDocument {
+  id             String    @id @default(cuid())
+  userId         String
+  documentType   String    // passport, license, etc.
+  documentNumber String
+  documentImage  String    // File path
+  status         String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  rejectionReason String?
+  submittedAt    DateTime  @default(now())
+  reviewedAt     DateTime?
+
+  // Relations
+  user           User      @relation(fields: [userId], references: [id])
+
+  @@map("kyc_documents")
+}

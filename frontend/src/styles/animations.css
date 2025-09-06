@@ -1,0 +1,104 @@
+/* Testimonials Scrolling Animations */
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-left-slow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Animation Classes */
+.animate-scroll-left {
+  animation: scroll-left 60s linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scroll-right 60s linear infinite;
+}
+
+.animate-scroll-left-slow {
+  animation: scroll-left-slow 80s linear infinite;
+}
+
+/* Pause animation on hover for better UX */
+.animate-scroll-left:hover,
+.animate-scroll-right:hover,
+.animate-scroll-left-slow:hover {
+  animation-play-state: paused;
+}
+
+/* Smooth gradient fade on edges */
+.testimonials-fade::before,
+.testimonials-fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.testimonials-fade::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.testimonials-fade::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .animate-scroll-left {
+    animation-duration: 40s;
+  }
+  
+  .animate-scroll-right {
+    animation-duration: 40s;
+  }
+  
+  .animate-scroll-left-slow {
+    animation-duration: 50s;
+  }
+}
+
+/* Enhanced hover effects for testimonial cards */
+.testimonial-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Smooth star rating animation */
+.star-rating {
+  transition: all 0.2s ease-in-out;
+}
+
+.star-rating:hover {
+  transform: scale(1.1);
+}

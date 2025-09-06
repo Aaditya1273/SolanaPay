@@ -25,6 +25,8 @@ prisma/migrations/
 # Logs
 logs/
 *.log
+.env.sqlite
+.env.postgres
 
 # Runtime data
 pids/
