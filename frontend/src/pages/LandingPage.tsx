@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowRight, Wallet, Zap, Shield, Users, Star, TrendingUp, Sparkles, LucideIcon, CheckCircle, Globe, Award, CreditCard, Smartphone, Lock, BarChart3, Play } from 'lucide-react'
 import '../styles/animations.css'
 
-const VPayLanding = () => {
+const SolanaPayLanding = () => {
   const navigate = useNavigate()
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({
     hero: false,
@@ -67,7 +67,7 @@ const VPayLanding = () => {
                 <div className="w-12 h-12 bg-gradient-to-br from-[#5f259f] to-[#7c3aed] rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
                   <span className="text-white font-bold text-xl">V</span>
                 </div>
-                <span className="text-3xl font-bold bg-gradient-to-r from-[#5f259f] to-[#7c3aed] bg-clip-text text-transparent">VPay</span>
+                <span className="text-3xl font-bold bg-gradient-to-r from-[#5f259f] to-[#7c3aed] bg-clip-text text-transparent">SolanaPay</span>
               </div>
               
               {/* Navigation Links */}
@@ -151,7 +151,7 @@ const VPayLanding = () => {
                 </button>
                 
                 <button 
-                  onClick={() => window.open('https://gamma.app/docs/VPay-Powering-the-Web3-Micro-Economy-a9zlnwnhhqgzp8s', '_blank')}
+                  onClick={() => window.open('https://gamma.app/docs/SolanaPay-Powering-the-Web3-Micro-Economy-a9zlnwnhhqgzp8s', '_blank')}
                   className="bg-white hover:bg-gray-50 text-gray-800 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 border-2 border-gray-200 hover:border-gray-300 flex items-center justify-center group"
                 >
                   <Play className="mr-3 h-5 w-5 group-hover:scale-110 transition-transform" />
@@ -187,7 +187,7 @@ const VPayLanding = () => {
                       <div className="w-16 h-16 bg-gradient-to-br from-[#5f259f] to-[#7c3aed] rounded-2xl mx-auto mb-6 flex items-center justify-center">
                         <Wallet className="w-8 h-8 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">VPay Wallet</h3>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">SolanaPay Wallet</h3>
                       <p className="text-gray-600 text-sm mb-8">Your digital finance hub</p>
                       
                       {/* Balance Card */}
@@ -353,7 +353,7 @@ const VPayLanding = () => {
                     Ready to experience the future of payments?
                   </h3>
                   <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                    Join millions of users who have already made the switch to VPay. 
+                    Join millions of users who have already made the switch to SolanaPay. 
                     Start with a free account and see the difference.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4">
@@ -416,15 +416,15 @@ const VPayLanding = () => {
           <div className="relative mb-8">
             <div className="flex animate-scroll-left space-x-6">
               {[
-                { name: "Priya Sharma", role: "Small Business Owner", content: "VPay made accepting payments so easy. My customers love the quick checkout!", avatar: "P" },
-                { name: "Rahul Kumar", role: "Freelancer", content: "Getting paid internationally was never this simple. VPay is a game-changer.", avatar: "R" },
+                { name: "Priya Sharma", role: "Small Business Owner", content: "SolanaPay made accepting payments so easy. My customers love the quick checkout!", avatar: "P" },
+                { name: "Rahul Kumar", role: "Freelancer", content: "Getting paid internationally was never this simple. SolanaPay is a game-changer.", avatar: "R" },
                 { name: "Anita Patel", role: "Student", content: "Splitting expenses with friends is now effortless. Love the user-friendly interface!", avatar: "A" },
                 { name: "Vikash Singh", role: "E-commerce Owner", content: "The payment gateway integration was seamless. Our conversion rates improved by 40%!", avatar: "V" },
-                { name: "Meera Joshi", role: "Consultant", content: "International clients can now pay me instantly. VPay removed all payment barriers.", avatar: "M" },
-                { name: "Arjun Reddy", role: "Startup Founder", content: "VPay's escrow system gave our customers confidence. Trust increased significantly.", avatar: "A" },
+                { name: "Meera Joshi", role: "Consultant", content: "International clients can now pay me instantly. SolanaPay removed all payment barriers.", avatar: "M" },
+                { name: "Arjun Reddy", role: "Startup Founder", content: "SolanaPay's escrow system gave our customers confidence. Trust increased significantly.", avatar: "A" },
                 // Duplicate for seamless loop
-                { name: "Priya Sharma", role: "Small Business Owner", content: "VPay made accepting payments so easy. My customers love the quick checkout!", avatar: "P" },
-                { name: "Rahul Kumar", role: "Freelancer", content: "Getting paid internationally was never this simple. VPay is a game-changer.", avatar: "R" },
+                { name: "Priya Sharma", role: "Small Business Owner", content: "SolanaPay made accepting payments so easy. My customers love the quick checkout!", avatar: "P" },
+                { name: "Rahul Kumar", role: "Freelancer", content: "Getting paid internationally was never this simple. SolanaPay is a game-changer.", avatar: "R" },
                 { name: "Anita Patel", role: "Student", content: "Splitting expenses with friends is now effortless. Love the user-friendly interface!", avatar: "A" },
               ].map((testimonial, index) => (
                 <div key={index} className="flex-shrink-0 w-80 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 testimonial-card">
@@ -456,7 +456,7 @@ const VPayLanding = () => {
                 { name: "Sneha Kapoor", role: "Fashion Designer", content: "Receiving payments from global clients is now instant. Amazing experience!", avatar: "S" },
                 { name: "Ravi Mehta", role: "Tech Lead", content: "The API documentation is excellent. Integration took just 2 hours!", avatar: "R" },
                 { name: "Kavya Nair", role: "Photographer", content: "Event payments are so smooth now. Clients pay instantly after shoots.", avatar: "K" },
-                { name: "Amit Sharma", role: "Delivery Partner", content: "Daily earnings tracking helps me plan better. VPay is incredibly reliable.", avatar: "A" },
+                { name: "Amit Sharma", role: "Delivery Partner", content: "Daily earnings tracking helps me plan better. SolanaPay is incredibly reliable.", avatar: "A" },
                 { name: "Pooja Agarwal", role: "Online Tutor", content: "Students from different countries can pay easily. No more payment delays!", avatar: "P" },
                 // Duplicate for seamless loop
                 { name: "Deepak Gupta", role: "Restaurant Owner", content: "QR code payments made our service faster. Customers love the convenience!", avatar: "D" },
@@ -488,16 +488,16 @@ const VPayLanding = () => {
           <div className="relative">
             <div className="flex animate-scroll-left-slow space-x-6">
               {[
-                { name: "Manish Jain", role: "Grocery Store Owner", content: "Digital payments increased our daily sales by 60%. VPay is a blessing!", avatar: "M" },
+                { name: "Manish Jain", role: "Grocery Store Owner", content: "Digital payments increased our daily sales by 60%. SolanaPay is a blessing!", avatar: "M" },
                 { name: "Nisha Verma", role: "Yoga Instructor", content: "Students book and pay for classes seamlessly. No more cash handling!", avatar: "N" },
-                { name: "Suresh Patel", role: "Taxi Driver", content: "Passengers prefer VPay over cash. My earnings are tracked automatically.", avatar: "S" },
+                { name: "Suresh Patel", role: "Taxi Driver", content: "Passengers prefer SolanaPay over cash. My earnings are tracked automatically.", avatar: "S" },
                 { name: "Ritika Sood", role: "Event Planner", content: "Vendor payments are instant now. Events run smoother than ever!", avatar: "R" },
                 { name: "Karan Malhotra", role: "Gym Owner", content: "Membership renewals are automated. Members love the convenience!", avatar: "K" },
                 { name: "Divya Iyer", role: "Boutique Owner", content: "Online and offline payments unified in one platform. Simply amazing!", avatar: "D" },
                 // Duplicate for seamless loop
-                { name: "Manish Jain", role: "Grocery Store Owner", content: "Digital payments increased our daily sales by 60%. VPay is a blessing!", avatar: "M" },
+                { name: "Manish Jain", role: "Grocery Store Owner", content: "Digital payments increased our daily sales by 60%. SolanaPay is a blessing!", avatar: "M" },
                 { name: "Nisha Verma", role: "Yoga Instructor", content: "Students book and pay for classes seamlessly. No more cash handling!", avatar: "N" },
-                { name: "Suresh Patel", role: "Taxi Driver", content: "Passengers prefer VPay over cash. My earnings are tracked automatically.", avatar: "S" },
+                { name: "Suresh Patel", role: "Taxi Driver", content: "Passengers prefer SolanaPay over cash. My earnings are tracked automatically.", avatar: "S" },
               ].map((testimonial, index) => (
                 <div key={index} className="flex-shrink-0 w-80 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 testimonial-card">
                   <div className="flex items-center space-x-4 mb-4">
@@ -565,7 +565,7 @@ const VPayLanding = () => {
               </button>
               
               <button 
-                onClick={() => window.open('https://gamma.app/docs/VPay-Powering-the-Web3-Micro-Economy-a9zlnwnhhqgzp8s', '_blank')}
+                onClick={() => window.open('https://gamma.app/docs/SolanaPay-Powering-the-Web3-Micro-Economy-a9zlnwnhhqgzp8s', '_blank')}
                 className="bg-transparent hover:bg-white/10 text-white px-12 py-4 rounded-xl font-semibold text-lg transition-all duration-300 border-2 border-white/30 hover:border-white/50 flex items-center justify-center group"
               >
                 <Play className="mr-3 w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -617,13 +617,13 @@ const VPayLanding = () => {
           {/* Main Footer Content */}
           <div className="py-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-              {/* VPay Brand */}
+              {/* SolanaPay Brand */}
               <div className="lg:col-span-1">
                 <div className="flex items-center space-x-3 mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-[#5f259f] to-[#7c3aed] rounded-2xl flex items-center justify-center">
                     <span className="text-white font-bold text-xl">V</span>
                   </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-[#5f259f] to-[#7c3aed] bg-clip-text text-transparent">VPay</span>
+                  <span className="text-2xl font-bold bg-gradient-to-r from-[#5f259f] to-[#7c3aed] bg-clip-text text-transparent">SolanaPay</span>
                 </div>
                 <p className="text-gray-300 leading-relaxed mb-6">
                   Revolutionizing digital payments with cutting-edge Web3 technology. 
@@ -689,7 +689,7 @@ const VPayLanding = () => {
           <div className="border-t border-gray-800 py-8">
             <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
               <div className="text-gray-400 text-sm">
-                <p>&copy; 2025 VPay Technologies. All rights reserved. Powering the future of digital payments.</p>
+                <p>&copy; 2025 SolanaPay Technologies. All rights reserved. Powering the future of digital payments.</p>
               </div>
               
               <div className="flex items-center space-x-8 text-sm">
@@ -707,4 +707,4 @@ const VPayLanding = () => {
   )
 }
 
-export default VPayLanding
+export default SolanaPayLanding

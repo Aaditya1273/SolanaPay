@@ -52,13 +52,13 @@ export default function RegisterPage() {
   const passwordsMatch = formData.password === formData.confirmPassword
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-vpay-purple-50 to-vpay-purple-100 dark:from-gray-900 dark:to-gray-800 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-SolanaPay-purple-50 to-SolanaPay-purple-100 dark:from-gray-900 dark:to-gray-800 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-vpay-purple-500 to-vpay-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-gradient-to-r from-SolanaPay-purple-500 to-SolanaPay-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-white font-bold text-2xl">V</span>
           </div>
-          <CardTitle className="text-2xl font-bold">Join VPay</CardTitle>
+          <CardTitle className="text-2xl font-bold">Join SolanaPay</CardTitle>
           <CardDescription>
             Create your account to start earning and spending
           </CardDescription>
@@ -161,7 +161,7 @@ export default function RegisterPage() {
 
             <Button
               type="submit"
-              variant="vpay"
+              variant="SolanaPay"
               className="w-full"
               disabled={isLoading || !isPasswordValid || !passwordsMatch}
             >
@@ -174,7 +174,7 @@ export default function RegisterPage() {
               Already have an account?{' '}
               <Link
                 to="/login"
-                className="text-vpay-purple-600 hover:text-vpay-purple-700 font-medium"
+                className="text-SolanaPay-purple-600 hover:text-SolanaPay-purple-700 font-medium"
               >
                 Sign in
               </Link>

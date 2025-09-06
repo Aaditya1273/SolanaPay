@@ -217,7 +217,7 @@ const RealTimeChatWindow: React.FC<RealTimeChatWindowProps> = ({
                 <Bot className="h-12 w-12 text-purple-300 mx-auto mb-4" />
                 <p className="text-gray-500 text-sm">
                   {roomType === 'ai-assistant' 
-                    ? "Hi! I'm your VeryChat assistant. Ask me about payments, receipts, or any VPay features."
+                    ? "Hi! I'm your VeryChat assistant. Ask me about payments, receipts, or any SolanaPay features."
                     : "Start a conversation..."
                   }
                 </p>
@@ -288,7 +288,7 @@ const RealTimeChatWindow: React.FC<RealTimeChatWindowProps> = ({
                   onKeyPress={handleKeyPress}
                   placeholder={
                     roomType === 'ai-assistant' 
-                      ? "Ask about payments, receipts, or VPay features..."
+                      ? "Ask about payments, receipts, or SolanaPay features..."
                       : "Type your message..."
                   }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"

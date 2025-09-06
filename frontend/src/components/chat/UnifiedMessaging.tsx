@@ -49,12 +49,12 @@ const UnifiedMessaging: React.FC = () => {
 
   const fetchContacts = async () => {
     try {
-      const token = localStorage.getItem('vpay-token');
+      const token = localStorage.getItem('SolanaPay-token');
       if (!token) {
         // If no token, show only support contact
         setContacts([{
           id: 'support-agent-1',
-          name: 'VPay Support Team',
+          name: 'SolanaPay Support Team',
           avatar: undefined,
           lastMessage: 'Hi! How can I help you today?',
           lastMessageTime: new Date().toISOString(),
@@ -78,7 +78,7 @@ const UnifiedMessaging: React.FC = () => {
         // Always include support contact
         const supportContact = {
           id: 'support-agent-1',
-          name: 'VPay Support Team',
+          name: 'SolanaPay Support Team',
           avatar: undefined,
           lastMessage: 'Hi! How can I help you today?',
           lastMessageTime: new Date().toISOString(),
@@ -96,7 +96,7 @@ const UnifiedMessaging: React.FC = () => {
       // Fallback to support only
       setContacts([{
         id: 'support-agent-1',
-        name: 'VPay Support Team',
+        name: 'SolanaPay Support Team',
         avatar: undefined,
         lastMessage: 'Hi! How can I help you today?',
         lastMessageTime: new Date().toISOString(),
@@ -120,7 +120,7 @@ const UnifiedMessaging: React.FC = () => {
 
   const loadSupportMessages = async () => {
     try {
-      const token = localStorage.getItem('vpay-token');
+      const token = localStorage.getItem('SolanaPay-token');
       if (!token) {
         // Fallback to initial support message
         setMessages([{
@@ -191,7 +191,7 @@ const UnifiedMessaging: React.FC = () => {
 
     // Send message to backend
     try {
-      const token = localStorage.getItem('vpay-token');
+      const token = localStorage.getItem('SolanaPay-token');
       if (token) {
         await fetch('/api/messages/send', {
           method: 'POST',

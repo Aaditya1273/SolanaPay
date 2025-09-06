@@ -10,17 +10,17 @@ import { Wallet, Shield, Gift, CheckCircle } from 'lucide-react'
 const steps = [
   {
     id: 1,
-    title: 'Welcome to VPay',
+    title: 'Welcome to SolanaPay',
     description: 'Your Web3 micro-economy platform',
     icon: Gift,
     content: (
       <div className="text-center space-y-4">
-        <div className="w-20 h-20 bg-gradient-to-r from-vpay-purple-500 to-vpay-purple-600 rounded-full flex items-center justify-center mx-auto">
+        <div className="w-20 h-20 bg-gradient-to-r from-SolanaPay-purple-500 to-SolanaPay-purple-600 rounded-full flex items-center justify-center mx-auto">
           <Gift className="h-10 w-10 text-white" />
         </div>
-        <h3 className="text-xl font-semibold">Welcome to VPay!</h3>
+        <h3 className="text-xl font-semibold">Welcome to SolanaPay!</h3>
         <p className="text-muted-foreground">
-          VPay is your gateway to the Web3 economy. Earn tokens by completing tasks, 
+          SolanaPay is your gateway to the Web3 economy. Earn tokens by completing tasks, 
           send instant payments, and unlock rewards as you engage with our community.
         </p>
         <div className="grid grid-cols-3 gap-4 mt-6">
@@ -64,7 +64,7 @@ const steps = [
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
           <p className="text-sm text-blue-700 dark:text-blue-300">
             <Shield className="h-4 w-4 inline mr-2" />
-            Your wallet remains under your control. VPay never stores your private keys.
+            Your wallet remains under your control. SolanaPay never stores your private keys.
           </p>
         </div>
       </div>
@@ -83,7 +83,7 @@ const steps = [
         <h3 className="text-xl font-semibold">Welcome Bonus!</h3>
         <p className="text-muted-foreground">
           Congratulations! You've earned your first 50 VRC tokens as a welcome bonus. 
-          Use them to explore the platform and start your VPay journey.
+          Use them to explore the platform and start your SolanaPay journey.
         </p>
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
           <div className="text-center">
@@ -97,16 +97,16 @@ const steps = [
   {
     id: 4,
     title: 'You\'re All Set!',
-    description: 'Start exploring VPay',
+    description: 'Start exploring SolanaPay',
     icon: CheckCircle,
     content: (
       <div className="text-center space-y-4">
-        <div className="w-20 h-20 bg-gradient-to-r from-vpay-purple-500 to-vpay-purple-600 rounded-full flex items-center justify-center mx-auto">
+        <div className="w-20 h-20 bg-gradient-to-r from-SolanaPay-purple-500 to-SolanaPay-purple-600 rounded-full flex items-center justify-center mx-auto">
           <CheckCircle className="h-10 w-10 text-white" />
         </div>
         <h3 className="text-xl font-semibold">You're All Set!</h3>
         <p className="text-muted-foreground">
-          Your VPay account is ready. Start by exploring available tasks, 
+          Your SolanaPay account is ready. Start by exploring available tasks, 
           sending your first payment, or checking out the rewards store.
         </p>
         <div className="grid grid-cols-1 gap-3 mt-6">
@@ -168,7 +168,7 @@ export default function OnboardingPage() {
   const canProceed = currentStep !== 2 || isConnected
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-vpay-purple-50 to-vpay-purple-100 dark:from-gray-900 dark:to-gray-800 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-SolanaPay-purple-50 to-SolanaPay-purple-100 dark:from-gray-900 dark:to-gray-800 p-4">
       <div className="max-w-2xl mx-auto pt-8">
         {/* Progress */}
         <div className="mb-8">
@@ -213,7 +213,7 @@ export default function OnboardingPage() {
               </Button>
             )}
             <Button
-              variant="vpay"
+              variant="SolanaPay"
               onClick={handleNext}
               disabled={!canProceed || isConnecting}
             >

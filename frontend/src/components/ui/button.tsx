@@ -18,7 +18,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        vpay: "bg-gradient-to-r from-vpay-purple-500 to-vpay-purple-600 text-white hover:from-vpay-purple-600 hover:to-vpay-purple-700 shadow-lg hover:shadow-xl",
+        SolanaPay: "bg-gradient-to-r from-SolanaPay-purple-500 to-SolanaPay-purple-600 text-white hover:from-SolanaPay-purple-600 hover:to-SolanaPay-purple-700 shadow-lg hover:shadow-xl",
       },
       size: {
         default: "h-10 px-4 py-2",

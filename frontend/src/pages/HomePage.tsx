@@ -79,10 +79,10 @@ export default function HomePage() {
       {/* Welcome Section */}
       <div className="text-center space-y-4">
         <h1 className="text-3xl font-bold text-foreground">
-          {user ? `Welcome back, ${user.username}!` : 'Welcome to VPay'} 👋
+          {user ? `Welcome back, ${user.username}!` : 'Welcome to SolanaPay'} 👋
         </h1>
         <p className="text-muted-foreground">
-          Ready to earn, spend, and grow in the VPay ecosystem?
+          Ready to earn, spend, and grow in the SolanaPay ecosystem?
         </p>
       </div>
 
@@ -149,7 +149,7 @@ export default function HomePage() {
           <CardTitle>Quick Actions</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Button variant="vpay" className="h-20 flex-col space-y-2" asChild>
+          <Button variant="SolanaPay" className="h-20 flex-col space-y-2" asChild>
             <Link to="/send">
               <Wallet className="h-6 w-6" />
               <span>Send Payment</span>
@@ -237,7 +237,7 @@ export default function HomePage() {
               <Clock className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground">No recent activity</p>
               <p className="text-sm text-muted-foreground mt-2">
-                Start using VPay to see your activity here
+                Start using SolanaPay to see your activity here
               </p>
             </div>
           )}

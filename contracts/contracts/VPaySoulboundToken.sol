@@ -9,11 +9,11 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
- * @title VPaySoulboundToken
+ * @title SolanaPaySoulboundToken
  * @dev Non-transferable Soulbound Tokens for loyalty achievements and reputation
  * Implements ERC721 but prevents transfers to make tokens soulbound
  */
-contract VPaySoulboundToken is ERC721, ERC721URIStorage, Ownable, Pausable {
+contract SolanaPaySoulboundToken is ERC721, ERC721URIStorage, Ownable, Pausable {
     using Counters for Counters.Counter;
     using Strings for uint256;
 
@@ -72,7 +72,7 @@ contract VPaySoulboundToken is ERC721, ERC721URIStorage, Ownable, Pausable {
         _;
     }
 
-    constructor() ERC721("VPay Soulbound Token", "VSBT") {
+    constructor() ERC721("SolanaPay Soulbound Token", "SSBT") {
         // Initialize achievement definitions
         _initializeAchievements();
         
@@ -97,7 +97,7 @@ contract VPaySoulboundToken is ERC721, ERC721URIStorage, Ownable, Pausable {
         achievementTitles[AchievementType.PAYMENT_MILESTONE][500] = "Power User";
         achievementDescriptions[AchievementType.PAYMENT_MILESTONE][500] = "Completed 500 payments";
         
-        achievementTitles[AchievementType.PAYMENT_MILESTONE][1000] = "VPay Champion";
+        achievementTitles[AchievementType.PAYMENT_MILESTONE][1000] = "SolanaPay Champion";
         achievementDescriptions[AchievementType.PAYMENT_MILESTONE][1000] = "Completed 1000 payments";
 
         // Activity streaks

@@ -8,10 +8,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 /**
- * @title VPayToken
- * @dev VRC (VeryPay Coin) - The native token for VPay ecosystem
+ * @title SolanaPayToken
+ * @dev VRC (VeryPay Coin) - The native token for SolanaPay ecosystem
  */
-contract VPayToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuard {
+contract SolanaPayToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuard {
     uint256 public constant MAX_SUPPLY = 1_000_000_000 * 10**18; // 1 billion tokens
     uint256 public constant INITIAL_SUPPLY = 100_000_000 * 10**18; // 100 million tokens
     
@@ -25,7 +25,7 @@ contract VPayToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGu
     event DailyLimitUpdated(address indexed minter, uint256 newLimit);
     
     modifier onlyMinter() {
-        require(minters[msg.sender], "VPayToken: caller is not a minter");
+        require(minters[msg.sender], "SolanaPayToken: caller is not a minter");
         _;
     }
     
@@ -37,8 +37,8 @@ contract VPayToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGu
      * @dev Add a new minter with daily mint limit
      */
     function addMinter(address minter, uint256 dailyLimit) external onlyOwner {
-        require(minter != address(0), "VPayToken: minter is zero address");
-        require(dailyLimit > 0, "VPayToken: daily limit must be positive");
+        require(minter != address(0), "SolanaPayToken: minter is zero address");
+        require(dailyLimit > 0, "SolanaPayToken: daily limit must be positive");
         
         minters[minter] = true;
         dailyMintLimits[minter] = dailyLimit;
@@ -50,7 +50,7 @@ contract VPayToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGu
      * @dev Remove a minter
      */
     function removeMinter(address minter) external onlyOwner {
-        require(minters[minter], "VPayToken: address is not a minter");
+        require(minters[minter], "SolanaPayToken: address is not a minter");
         
         minters[minter] = false;
         dailyMintLimits[minter] = 0;
@@ -62,8 +62,8 @@ contract VPayToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGu
      * @dev Update daily mint limit for a minter
      */
     function updateDailyLimit(address minter, uint256 newLimit) external onlyOwner {
-        require(minters[minter], "VPayToken: address is not a minter");
-        require(newLimit > 0, "VPayToken: daily limit must be positive");
+        require(minters[minter], "SolanaPayToken: address is not a minter");
+        require(newLimit > 0, "SolanaPayToken: daily limit must be positive");
         
         dailyMintLimits[minter] = newLimit;
         
@@ -74,9 +74,9 @@ contract VPayToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGu
      * @dev Mint tokens with daily limit check
      */
     function mint(address to, uint256 amount) external onlyMinter nonReentrant {
-        require(to != address(0), "VPayToken: mint to zero address");
-        require(amount > 0, "VPayToken: amount must be positive");
-        require(totalSupply() + amount <= MAX_SUPPLY, "VPayToken: exceeds max supply");
+        require(to != address(0), "SolanaPayToken: mint to zero address");
+        require(amount > 0, "SolanaPayToken: amount must be positive");
+        require(totalSupply() + amount <= MAX_SUPPLY, "SolanaPayToken: exceeds max supply");
         
         uint256 currentDay = block.timestamp / 1 days;
         
@@ -88,7 +88,7 @@ contract VPayToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGu
         
         require(
             dailyMinted[msg.sender] + amount <= dailyMintLimits[msg.sender],
-            "VPayToken: exceeds daily mint limit"
+            "SolanaPayToken: exceeds daily mint limit"
         );
         
         dailyMinted[msg.sender] += amount;

@@ -29,7 +29,7 @@ export default function ReceivePaymentPage() {
 
   const fetchRecentPayments = async () => {
     try {
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       if (!token || !account) {
         setRecentPayments([])
         return
@@ -73,11 +73,11 @@ export default function ReceivePaymentPage() {
   }
 
   const sharePaymentRequest = () => {
-    const text = `Send me ${amount ? `${amount} VRC` : 'VRC tokens'} on VPay${message ? ` for: ${message}` : ''}`
+    const text = `Send me ${amount ? `${amount} VRC` : 'VRC tokens'} on SolanaPay${message ? ` for: ${message}` : ''}`
     
     if (navigator.share) {
       navigator.share({
-        title: 'VPay Payment Request',
+        title: 'SolanaPay Payment Request',
         text,
         url: window.location.href
       })

@@ -94,7 +94,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     
     if (typeof window.ethereum === 'undefined') {
       console.log('MetaMask not detected')
-      toast.error('Please install MetaMask to use VPay')
+      toast.error('Please install MetaMask to use SolanaPay')
       window.open('https://metamask.io/download/', '_blank')
       return
     }
@@ -189,7 +189,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
 
   const saveWalletToProfile = async (walletAddress: string) => {
     try {
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       if (!token) return
 
       await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/user/wallet`, {

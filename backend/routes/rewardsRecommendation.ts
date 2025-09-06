@@ -304,7 +304,7 @@ async function processNFTClaim(userId: string, metadata: any) {
 
 async function processDiscountClaim(userId: string, metadata: any) {
   // Create a discount coupon/code
-  const discountCode = `VPAY${Date.now().toString().slice(-6)}`;
+  const discountCode = `SolanaPay${Date.now().toString().slice(-6)}`;
   
   // Store discount in user preferences for later use
   await prisma.userPreference.upsert({

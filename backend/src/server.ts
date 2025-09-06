@@ -57,7 +57,7 @@ app.use('/api/kyc', kycRoutes)
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
-    message: 'VPay API is running',
+    message: 'SolanaPay API is running',
     timestamp: new Date().toISOString(),
     version: '1.0.0'
   })
@@ -107,7 +107,7 @@ app.use('*', (req, res) => {
 const PORT = process.env.PORT || 3001
 
 server.listen(PORT, () => {
-  console.log(`🚀 VPay API Server running on port ${PORT}`)
+  console.log(`🚀 SolanaPay API Server running on port ${PORT}`)
   console.log(`📱 Frontend URL: ${process.env.FRONTEND_URL || "http://localhost:5173"}`)
   console.log(`🔗 API Base URL: http://localhost:${PORT}/api`)
   console.log(`📊 Health Check: http://localhost:${PORT}/api/health`)

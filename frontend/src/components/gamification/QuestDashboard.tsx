@@ -63,7 +63,7 @@ const QuestDashboard: React.FC = () => {
     try {
       const response = await fetch('/api/quests', {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         }
       });
       const data = await response.json();
@@ -83,7 +83,7 @@ const QuestDashboard: React.FC = () => {
     try {
       const response = await fetch('/api/quests/completed?limit=20', {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         }
       });
       const data = await response.json();
@@ -101,7 +101,7 @@ const QuestDashboard: React.FC = () => {
       const response = await fetch('/api/quests/generate/weekly', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         }
       });
       const data = await response.json();

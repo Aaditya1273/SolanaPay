@@ -172,7 +172,7 @@ const LeaderboardDashboard: React.FC = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Leaderboards</h1>
-          <p className="text-gray-600">Compete with other VPay users and climb the ranks</p>
+          <p className="text-gray-600">Compete with other SolanaPay users and climb the ranks</p>
         </div>
         <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
           <SelectTrigger className="w-40">

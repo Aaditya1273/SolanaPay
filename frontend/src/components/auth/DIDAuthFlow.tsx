@@ -494,7 +494,7 @@ export const DIDAuthFlow: React.FC<DIDAuthFlowProps> = ({
       <div className="text-center space-y-4">
         <h2 className="text-2xl font-bold">Identity Verification</h2>
         <p className="text-gray-600">
-          Complete your decentralized identity setup to access all VPay features
+          Complete your decentralized identity setup to access all SolanaPay features
         </p>
         <div className="space-y-2">
           <Progress value={authProgress} className="w-full" />

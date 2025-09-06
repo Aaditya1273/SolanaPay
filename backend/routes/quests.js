@@ -16,7 +16,7 @@ class QuestService {
     const dailyQuests = [
       {
         title: "Daily Login Streak",
-        description: "Log in to VPay today to maintain your streak",
+        description: "Log in to SolanaPay today to maintain your streak",
         type: "DAILY",
         category: "STREAK",
         difficulty: "EASY",
@@ -240,7 +240,7 @@ class QuestService {
     const badge = await prisma.nFTBadge.create({
       data: {
         name: `Level ${level} Master`,
-        description: `Reached level ${level} in VPay`,
+        description: `Reached level ${level} in SolanaPay`,
         image: `/badges/level_${level}.png`,
         rarity: level >= 50 ? 'LEGENDARY' : level >= 25 ? 'EPIC' : level >= 10 ? 'RARE' : 'COMMON',
         category: 'MILESTONE',

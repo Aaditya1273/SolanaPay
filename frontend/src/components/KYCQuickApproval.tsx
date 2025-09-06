@@ -16,7 +16,7 @@ export default function KYCQuickApproval() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         },
         body: JSON.stringify({ status: 'approved' })
       })

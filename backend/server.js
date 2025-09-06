@@ -62,9 +62,9 @@ const wallet = new ethers.Wallet(process.env.PRIVATE_KEY || '0xac0974bec39a17e36
 
 // Contract addresses (update these after deployment)
 const CONTRACT_ADDRESSES = {
-  VPayPayments: process.env.VPAY_PAYMENTS_ADDRESS || '',
-  VPayEscrow: process.env.VPAY_ESCROW_ADDRESS || '',
-  VPayRewards: process.env.VPAY_REWARDS_ADDRESS || ''
+  SolanaPayPayments: process.env.SolanaPay_PAYMENTS_ADDRESS || '',
+  SolanaPayEscrow: process.env.SolanaPay_ESCROW_ADDRESS || '',
+  SolanaPayRewards: process.env.SolanaPay_REWARDS_ADDRESS || ''
 };
 
 // Contract ABIs (simplified for demo)
@@ -98,14 +98,14 @@ let paymentsContract, escrowContract, rewardsContract;
 // Initialize contracts
 async function initializeContracts() {
   try {
-    if (CONTRACT_ADDRESSES.VPayPayments) {
-      paymentsContract = new ethers.Contract(CONTRACT_ADDRESSES.VPayPayments, PAYMENT_ABI, wallet);
+    if (CONTRACT_ADDRESSES.SolanaPayPayments) {
+      paymentsContract = new ethers.Contract(CONTRACT_ADDRESSES.SolanaPayPayments, PAYMENT_ABI, wallet);
     }
-    if (CONTRACT_ADDRESSES.VPayEscrow) {
-      escrowContract = new ethers.Contract(CONTRACT_ADDRESSES.VPayEscrow, ESCROW_ABI, wallet);
+    if (CONTRACT_ADDRESSES.SolanaPayEscrow) {
+      escrowContract = new ethers.Contract(CONTRACT_ADDRESSES.SolanaPayEscrow, ESCROW_ABI, wallet);
     }
-    if (CONTRACT_ADDRESSES.VPayRewards) {
-      rewardsContract = new ethers.Contract(CONTRACT_ADDRESSES.VPayRewards, REWARDS_ABI, wallet);
+    if (CONTRACT_ADDRESSES.SolanaPayRewards) {
+      rewardsContract = new ethers.Contract(CONTRACT_ADDRESSES.SolanaPayRewards, REWARDS_ABI, wallet);
     }
     console.log('✅ Smart contracts initialized');
   } catch (error) {
@@ -746,7 +746,7 @@ app.use('/api/wallet', walletRoutes);
 // =============================================================================
 
 app.listen(PORT, async () => {
-  console.log(`🚀 VPay Backend Server running on port ${PORT}`);
+  console.log(`🚀 SolanaPay Backend Server running on port ${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
   console.log(`🔗 API Base URL: http://localhost:${PORT}/api`);
   
@@ -860,81 +860,58 @@ function generatePaymentMessage(type, status, amount, transactionId) {
   }
 }
 
-// AI query processing function
+// Import local AI service
+const { processAIQuery: processLocalAI, generatePaymentMessage, enhanceResponseWithContext } = require('./services/localAIService');
+
+// AI query processing function (now uses local AI)
 async function processAIQuery(query, context) {
-  // Try VeryChat API first if available
-  if (process.env.VERYCHAT_API_KEY) {
-    try {
-      const response = await fetch('https://api.verychat.ai/v1/chat', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.VERYCHAT_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: query,
-          context: {
-            platform: 'VPay',
-            domain: 'fintech',
-            ...context
-          }
-        })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        return data.message || data.response || 'I apologize, but I couldn\'t process your request right now.';
-      }
-    } catch (error) {
-      console.error('VeryChat API error:', error);
-      // Fall back to local responses
-    }
+  try {
+    const response = await processLocalAI(query, context);
+    return enhanceResponseWithContext(response.message, context);
+  } catch (error) {
+    console.error('Local AI error:', error);
+    // Fall back to basic responses
   }
 
-  // Fallback to local AI processing
-  const lowerQuery = query.toLowerCase();
-  
-  // Enhanced FAQ responses with more context
-  if (lowerQuery.includes('receipt') || lowerQuery.includes('transaction')) {
-    return "📄 **Transaction Receipts**\n\nYou can find your receipts in the **Wallet** section under 'Transaction History'. All payment receipts are automatically generated and stored there. You can:\n\n• View receipt details\n• Download as PDF\n• Share via email\n• Print for records\n\nNeed help finding a specific transaction? Let me know the date or amount!";
-  }
+  // Fallback responses if local AI fails
+  return "I'm here to help with SolanaPay! I can assist with wallet management, payments, KYC verification, tasks, and rewards. What would you like to know?";
   
   if (lowerQuery.includes('payment') && lowerQuery.includes('failed')) {
     return "❌ **Payment Failed - Troubleshooting**\n\nHere's what to check when payments fail:\n\n1. **Wallet Balance** - Ensure sufficient funds\n2. **Network Status** - Check your internet connection\n3. **Recipient Address** - Verify it's correct\n4. **Transaction Limits** - You might have hit daily limits\n5. **KYC Status** - Some payments require verification\n\nTry the payment again, or contact our support team if the issue persists.";
   }
   
   if (lowerQuery.includes('kyc') || lowerQuery.includes('verification')) {
-    return "🔐 **KYC Verification**\n\nKYC (Know Your Customer) verification helps keep VPay secure:\n\n• **Required for**: Large transactions, merchant features\n• **Documents needed**: ID, proof of address\n• **Processing time**: 1-3 business days\n• **Status check**: Go to Profile → KYC Status\n\nStart your KYC verification in the Profile section!";
+    return "🔐 **KYC Verification**\n\nKYC (Know Your Customer) verification helps keep SolanaPay secure:\n\n• **Required for**: Large transactions, merchant features\n• **Documents needed**: ID, proof of address\n• **Processing time**: 1-3 business days\n• **Status check**: Go to Profile → KYC Status\n\nStart your KYC verification in the Profile section!";
   }
   
   if (lowerQuery.includes('task') || lowerQuery.includes('work') || lowerQuery.includes('job')) {
-    return "💼 **VPay Tasks & Marketplace**\n\nEarn money by completing micro-tasks:\n\n• **Browse Tasks**: Check the Tasks page for available work\n• **Categories**: Design, Writing, Development, Data Entry, and more\n• **Apply**: Submit proposals for tasks you're interested in\n• **Get Paid**: Secure escrow payments upon completion\n\nReady to start earning? Visit the Tasks section!";
+    return "💼 **SolanaPay Tasks & Marketplace**\n\nEarn money by completing micro-tasks:\n\n• **Browse Tasks**: Check the Tasks page for available work\n• **Categories**: Design, Writing, Development, Data Entry, and more\n• **Apply**: Submit proposals for tasks you're interested in\n• **Get Paid**: Secure escrow payments upon completion\n\nReady to start earning? Visit the Tasks section!";
   }
   
   if (lowerQuery.includes('support') || lowerQuery.includes('help')) {
-    return "🤝 **VPay Support**\n\nI'm here to help with:\n\n• 💳 **Payments** - Send, receive, troubleshoot\n• 📄 **Receipts** - Find and download transaction records\n• 💰 **Wallet** - Balance, history, security\n• 🔐 **KYC** - Verification process and status\n• 💼 **Tasks** - Finding work and getting paid\n• 🏪 **Merchant** - Business features and settlements\n\nWhat specific assistance do you need today?";
+    return "🤝 **SolanaPay Support**\n\nI'm here to help with:\n\n• 💳 **Payments** - Send, receive, troubleshoot\n• 📄 **Receipts** - Find and download transaction records\n• 💰 **Wallet** - Balance, history, security\n• 🔐 **KYC** - Verification process and status\n• 💼 **Tasks** - Finding work and getting paid\n• 🏪 **Merchant** - Business features and settlements\n\nWhat specific assistance do you need today?";
   }
   
   if (lowerQuery.includes('balance') || lowerQuery.includes('wallet')) {
-    return "💰 **Wallet & Balance**\n\nManage your VPay wallet:\n\n• **Current Balance**: View in the Wallet section\n• **Transaction History**: See all payments and receipts\n• **Add Funds**: Deposit money via bank transfer or card\n• **Withdraw**: Transfer funds to your bank account\n• **Security**: Multi-signature protection and encryption\n\nYour wallet is your gateway to the VPay ecosystem!";
+    return "💰 **Wallet & Balance**\n\nManage your SolanaPay wallet:\n\n• **Current Balance**: View in the Wallet section\n• **Transaction History**: See all payments and receipts\n• **Add Funds**: Deposit money via bank transfer or card\n• **Withdraw**: Transfer funds to your bank account\n• **Security**: Multi-signature protection and encryption\n\nYour wallet is your gateway to the SolanaPay ecosystem!";
   }
   
   if (lowerQuery.includes('merchant') || lowerQuery.includes('business') || lowerQuery.includes('settlement')) {
-    return "🏪 **Merchant & Business Features**\n\nVPay for Business:\n\n• **Accept Payments**: Integrate VPay into your business\n• **Settlement Dashboard**: Track earnings and payouts\n• **Customer Chat**: Communicate with buyers\n• **Analytics**: Monitor transaction patterns\n• **KYC Required**: Business verification needed\n\nReady to grow your business with VPay? Check the Merchant Settlement section!";
+    return "🏪 **Merchant & Business Features**\n\nSolanaPay for Business:\n\n• **Accept Payments**: Integrate SolanaPay into your business\n• **Settlement Dashboard**: Track earnings and payouts\n• **Customer Chat**: Communicate with buyers\n• **Analytics**: Monitor transaction patterns\n• **KYC Required**: Business verification needed\n\nReady to grow your business with SolanaPay? Check the Merchant Settlement section!";
   }
   
   if (lowerQuery.includes('fee') || lowerQuery.includes('cost') || lowerQuery.includes('charge')) {
-    return "💸 **VPay Fees & Costs**\n\nTransparent pricing:\n\n• **Personal Transfers**: Free between VPay users\n• **Merchant Payments**: 2.9% + $0.30 per transaction\n• **Withdrawals**: $1.50 to bank accounts\n• **International**: Additional 1.5% for cross-border\n• **Task Escrow**: 3% platform fee on completion\n\nNo hidden fees - what you see is what you pay!";
+    return "💸 **SolanaPay Fees & Costs**\n\nTransparent pricing:\n\n• **Personal Transfers**: Free between SolanaPay users\n• **Merchant Payments**: 2.9% + $0.30 per transaction\n• **Withdrawals**: $1.50 to bank accounts\n• **International**: Additional 1.5% for cross-border\n• **Task Escrow**: 3% platform fee on completion\n\nNo hidden fees - what you see is what you pay!";
   }
   
   // Default response with more personality
-  return "🤖 **VeryChat AI Assistant**\n\nI'm here to help with all things VPay! I can assist with:\n\n• Payment troubleshooting\n• Wallet management\n• Task marketplace guidance\n• KYC verification help\n• Merchant features\n• General platform questions\n\nCould you please be more specific about what you'd like help with? The more details you provide, the better I can assist you!";
+  return "🤖 **VeryChat AI Assistant**\n\nI'm here to help with all things SolanaPay! I can assist with:\n\n• Payment troubleshooting\n• Wallet management\n• Task marketplace guidance\n• KYC verification help\n• Merchant features\n• General platform questions\n\nCould you please be more specific about what you'd like help with? The more details you provide, the better I can assist you!";
 }
 
 // Start server with WebSocket support and port conflict handling
 const startServer = (port) => {
   server.listen(port, () => {
-    console.log(`🚀 VPay Backend Server running on port ${port}`);
+    console.log(`🚀 SolanaPay Backend Server running on port ${port}`);
     console.log(`📊 Health check: http://localhost:${port}/api/health`);
     console.log(`🔗 API Base URL: http://localhost:${port}/api`);
     console.log(`📡 WebSocket server ready for real-time chat`);

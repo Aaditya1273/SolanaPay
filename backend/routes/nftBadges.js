@@ -21,7 +21,7 @@ class NFTBadgeService {
       name: badge.name,
       description: badge.description,
       image: badge.image,
-      external_url: `https://vpay.app/badges/${badge.id}`,
+      external_url: `https://SolanaPay.app/badges/${badge.id}`,
       attributes: [
         {
           trait_type: "Rarity",

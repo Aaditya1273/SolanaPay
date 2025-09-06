@@ -71,8 +71,8 @@ const generateAIRecommendations = async (userId) => {
       recommendations.push({
         id: `tokens_${Date.now()}`,
         rewardType: 'BONUS_TOKENS',
-        title: `${bonusTokens} Bonus VPay Tokens`,
-        description: `Complete 2 more tasks this week to earn ${bonusTokens} bonus VPay tokens.`,
+        title: `${bonusTokens} Bonus SolanaPay Tokens`,
+        description: `Complete 2 more tasks this week to earn ${bonusTokens} bonus SolanaPay tokens.`,
         value: bonusTokens,
         confidence: Math.min(0.98, taskCompletionRate + 0.1),
         reasoning: `Your task completion rate is ${Math.floor(taskCompletionRate * 100)}% with ${completedTasks.length} completed tasks.`,

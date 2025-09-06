@@ -40,7 +40,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   // Load messages from localStorage
   const loadMessages = (): Message[] => {
     try {
-      const saved = localStorage.getItem('vpay-chat-messages');
+      const saved = localStorage.getItem('SolanaPay-chat-messages');
       if (saved) {
         const parsed = JSON.parse(saved);
         return parsed.map((msg: any) => ({
@@ -54,7 +54,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     
     return [{
       id: '1',
-      content: 'Hello! I\'m your VeryChat assistant. How can I help you with VPay today?',
+      content: 'Hello! I\'m your VeryChat assistant. How can I help you with SolanaPay today?',
       sender: 'assistant',
       timestamp: new Date(),
     }];
@@ -68,7 +68,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
   // Save messages to localStorage whenever they change
   useEffect(() => {
     try {
-      localStorage.setItem('vpay-chat-messages', JSON.stringify(messages));
+      localStorage.setItem('SolanaPay-chat-messages', JSON.stringify(messages));
     } catch (error) {
       console.error('Error saving chat messages:', error);
     }

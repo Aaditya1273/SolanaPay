@@ -24,44 +24,44 @@ async function main() {
   console.log(`🌐 Network: ${deployment.network} (${deployment.chainId})`);
   
   try {
-    // Verify VPayToken
-    console.log("\n🔍 Verifying VPayToken...");
+    // Verify SolanaPayToken
+    console.log("\n🔍 Verifying SolanaPayToken...");
     await run("verify:verify", {
-      address: deployment.contracts.VPayToken,
+      address: deployment.contracts.SolanaPayToken,
       constructorArguments: [deployment.deployer]
     });
-    console.log("✅ VPayToken verified");
+    console.log("✅ SolanaPayToken verified");
     
-    // Verify VPayPayments
-    console.log("\n🔍 Verifying VPayPayments...");
+    // Verify SolanaPayPayments
+    console.log("\n🔍 Verifying SolanaPayPayments...");
     await run("verify:verify", {
-      address: deployment.contracts.VPayPayments,
+      address: deployment.contracts.SolanaPayPayments,
       constructorArguments: [deployment.deployer]
     });
-    console.log("✅ VPayPayments verified");
+    console.log("✅ SolanaPayPayments verified");
     
-    // Verify VPayEscrow
-    console.log("\n🔍 Verifying VPayEscrow...");
+    // Verify SolanaPayEscrow
+    console.log("\n🔍 Verifying SolanaPayEscrow...");
     await run("verify:verify", {
-      address: deployment.contracts.VPayEscrow,
+      address: deployment.contracts.SolanaPayEscrow,
       constructorArguments: [
-        deployment.contracts.VPayToken,
+        deployment.contracts.SolanaPayToken,
         deployment.deployer,
         deployment.deployer
       ]
     });
-    console.log("✅ VPayEscrow verified");
+    console.log("✅ SolanaPayEscrow verified");
     
-    // Verify VPayRewards
-    console.log("\n🔍 Verifying VPayRewards...");
+    // Verify SolanaPayRewards
+    console.log("\n🔍 Verifying SolanaPayRewards...");
     await run("verify:verify", {
-      address: deployment.contracts.VPayRewards,
+      address: deployment.contracts.SolanaPayRewards,
       constructorArguments: [
-        deployment.contracts.VPayToken,
+        deployment.contracts.SolanaPayToken,
         deployment.deployer
       ]
     });
-    console.log("✅ VPayRewards verified");
+    console.log("✅ SolanaPayRewards verified");
     
     console.log("\n🎉 All contracts verified successfully!");
     

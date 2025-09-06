@@ -22,7 +22,7 @@ export default function BottomNav() {
               cn(
                 'flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-colors min-w-0',
                 isActive
-                  ? 'text-vpay-purple-600 dark:text-vpay-purple-400'
+                  ? 'text-SolanaPay-purple-600 dark:text-SolanaPay-purple-400'
                   : 'text-muted-foreground hover:text-foreground'
               )
             }

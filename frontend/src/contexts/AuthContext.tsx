@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { authAPI } from '../services/api'
+import web3AuthService, { AuthUser } from '../services/web3AuthService'
 
 interface User {
   id: string
@@ -10,12 +11,14 @@ interface User {
   fullName?: string
   avatar?: string
   walletAddress?: string
+  solanaWalletAddress?: string
   isVerified: boolean
   kycStatus: 'pending' | 'approved' | 'rejected'
   rewardPoints?: number
   tier?: string
   totalEarnings?: number
   createdAt: string
+  provider?: string
 }
 
 interface AuthContextType {
@@ -24,8 +27,11 @@ interface AuthContextType {
   isAuthenticated: boolean
   login: (email: string, password: string) => Promise<void>
   register: (email: string, password: string, username: string) => Promise<void>
+  loginWithSocial: (provider: 'google' | 'facebook' | 'twitter' | 'discord' | 'github') => Promise<void>
+  loginWithMetaMask: () => Promise<void>
   logout: () => void
   updateUser: (userData: Partial<User>) => void
+  generateSolanaWallet: () => Promise<string>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -43,7 +49,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkAuthStatus = async () => {
     try {
-      const token = localStorage.getItem('vpay-token')
+      // First try to restore Web3Auth session
+      const web3AuthRestored = await web3AuthService.restoreSession()
+      if (web3AuthRestored) {
+        const authUser = web3AuthService.getAuthState().user
+        if (authUser) {
+          await syncUserWithBackend(authUser)
+          setIsLoading(false)
+          return
+        }
+      }
+
+      // Fallback to traditional token-based auth
+      const token = localStorage.getItem('SolanaPay-token')
       if (!token) {
         setIsLoading(false)
         return
@@ -52,7 +70,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await authAPI.me()
       setUser(response.data.user)
     } catch (error) {
-      localStorage.removeItem('vpay-token')
+      localStorage.removeItem('SolanaPay-token')
       console.error('Auth check failed:', error)
     } finally {
       setIsLoading(false)
@@ -91,7 +109,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error('Invalid response from server')
       }
       
-      localStorage.setItem('vpay-token', response.data.token)
+      localStorage.setItem('SolanaPay-token', response.data.token)
       setUser(response.data.user)
       
       toast.success(`Welcome back, ${response.data.user.username}!`)
@@ -145,10 +163,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error('Invalid response from server')
       }
       
-      localStorage.setItem('vpay-token', response.data.token)
+      localStorage.setItem('SolanaPay-token', response.data.token)
       setUser(response.data.user)
       
-      toast.success(`Welcome to VPay, ${response.data.user.username}!`)
+      toast.success(`Welcome to SolanaPay, ${response.data.user.username}!`)
       navigate('/onboarding')
     } catch (error: any) {
       const message = error.response?.data?.message || error.message || 'Registration failed'
@@ -159,15 +177,120 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const loginWithSocial = async (provider: 'google' | 'facebook' | 'twitter' | 'discord' | 'github') => {
+    try {
+      setIsLoading(true)
+      const authUser = await web3AuthService.loginWithSocial(provider)
+      await syncUserWithBackend(authUser)
+      toast.success(`Welcome! Logged in with ${provider}`)
+      navigate('/dashboard')
+    } catch (error: any) {
+      toast.error(error.message || `${provider} login failed`)
+      throw error
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const loginWithMetaMask = async () => {
+    try {
+      setIsLoading(true)
+      const authUser = await web3AuthService.loginWithMetaMask()
+      await syncUserWithBackend(authUser)
+      toast.success('Connected with MetaMask!')
+      navigate('/dashboard')
+    } catch (error: any) {
+      toast.error(error.message || 'MetaMask connection failed')
+      throw error
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const generateSolanaWallet = async (): Promise<string> => {
+    try {
+      if (!user?.walletAddress) {
+        throw new Error('No EVM wallet connected')
+      }
+
+      const response = await authAPI.generateSolanaWallet({
+        evmAddress: user.walletAddress
+      })
+
+      const solanaAddress = response.data.solanaAddress
+      updateUser({ solanaWalletAddress: solanaAddress })
+      
+      toast.success('Solana wallet generated successfully!')
+      return solanaAddress
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to generate Solana wallet')
+      throw error
+    }
+  }
+
+  const syncUserWithBackend = async (authUser: AuthUser) => {
+    try {
+      // Create or update user in backend
+      const response = await authAPI.syncWeb3User({
+        walletAddress: authUser.walletAddress,
+        email: authUser.email,
+        name: authUser.name,
+        provider: authUser.provider,
+        profileImage: authUser.profileImage
+      })
+
+      const backendUser: User = {
+        id: response.data.user.id,
+        email: response.data.user.email || authUser.email || '',
+        username: response.data.user.username || authUser.name || 'User',
+        fullName: authUser.name,
+        avatar: authUser.profileImage,
+        walletAddress: authUser.walletAddress,
+        solanaWalletAddress: response.data.user.solanaWalletAddress,
+        isVerified: response.data.user.isVerified || true,
+        kycStatus: response.data.user.kycStatus || 'pending',
+        rewardPoints: response.data.user.rewardPoints || 0,
+        tier: response.data.user.tier || 'bronze',
+        totalEarnings: response.data.user.totalEarnings || 0,
+        createdAt: response.data.user.createdAt || new Date().toISOString(),
+        provider: authUser.provider
+      }
+
+      setUser(backendUser)
+      
+      if (response.data.token) {
+        localStorage.setItem('SolanaPay-token', response.data.token)
+      }
+    } catch (error) {
+      console.error('Failed to sync user with backend:', error)
+      // Create minimal user object for Web3 users
+      const minimalUser: User = {
+        id: authUser.id,
+        email: authUser.email || '',
+        username: authUser.name || 'Web3 User',
+        walletAddress: authUser.walletAddress,
+        isVerified: true,
+        kycStatus: 'pending',
+        createdAt: new Date().toISOString(),
+        provider: authUser.provider
+      }
+      setUser(minimalUser)
+    }
+  }
+
   const logout = async () => {
     try {
+      // Logout from Web3Auth if connected
+      if (web3AuthService.isConnected()) {
+        await web3AuthService.logout()
+      }
+      
       // Call logout API to invalidate token on server
       await authAPI.logout()
     } catch (error) {
-      // Continue with logout even if API call fails
       console.error('Logout API call failed:', error)
     } finally {
-      localStorage.removeItem('vpay-token')
+      localStorage.removeItem('SolanaPay-token')
       setUser(null)
       toast.success('Logged out successfully')
       navigate('/login')
@@ -175,7 +298,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const updateUser = (userData: Partial<User>) => {
-    setUser(prev => prev ? { ...prev, ...userData } : null)
+    setUser((prev: User | null) => prev ? { ...prev, ...userData } : null)
   }
 
   return (
@@ -186,8 +309,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isAuthenticated,
         login,
         register,
+        loginWithSocial,
+        loginWithMetaMask,
         logout,
         updateUser,
+        generateSolanaWallet,
       }}
     >
       {children}

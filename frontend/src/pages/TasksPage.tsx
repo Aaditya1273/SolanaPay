@@ -90,7 +90,7 @@ export default function TasksPage() {
           <h1 className="text-3xl font-bold">Mini-Tasks</h1>
           <p className="text-muted-foreground">Find work that matches your skills</p>
         </div>
-        <Button variant="vpay" asChild>
+        <Button variant="SolanaPay" asChild>
           <Link to="/tasks/create">
             <Plus className="h-4 w-4 mr-2" />
             Post a Task
@@ -123,7 +123,7 @@ export default function TasksPage() {
                   {categories.map((category) => (
                     <Button
                       key={category}
-                      variant={selectedCategory === category ? "vpay" : "outline"}
+                      variant={selectedCategory === category ? "SolanaPay" : "outline"}
                       size="sm"
                       onClick={() => setSelectedCategory(category)}
                     >
@@ -162,7 +162,7 @@ export default function TasksPage() {
       {/* Loading State */}
       {loading && (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-vpay-purple-600" />
+          <Loader2 className="h-8 w-8 animate-spin text-SolanaPay-purple-600" />
           <span className="ml-2 text-muted-foreground">Loading tasks...</span>
         </div>
       )}
@@ -191,7 +191,7 @@ export default function TasksPage() {
                   <div className="flex-1">
                     <Link 
                       to={`/tasks/${task.id}`}
-                      className="text-xl font-semibold hover:text-vpay-purple-600 transition-colors"
+                      className="text-xl font-semibold hover:text-SolanaPay-purple-600 transition-colors"
                     >
                       {task.title}
                     </Link>
@@ -211,7 +211,7 @@ export default function TasksPage() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-vpay-purple-600">
+                    <div className="text-2xl font-bold text-SolanaPay-purple-600">
                       {formatCurrency(task.budget)}
                     </div>
                     <div className="text-sm text-muted-foreground">{task.duration}</div>
@@ -226,7 +226,7 @@ export default function TasksPage() {
                   {task.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="px-2 py-1 bg-vpay-purple-100 dark:bg-vpay-purple-900/20 text-vpay-purple-700 dark:text-vpay-purple-300 text-xs rounded-full"
+                      className="px-2 py-1 bg-SolanaPay-purple-100 dark:bg-SolanaPay-purple-900/20 text-SolanaPay-purple-700 dark:text-SolanaPay-purple-300 text-xs rounded-full"
                     >
                       {skill}
                     </span>
@@ -256,7 +256,7 @@ export default function TasksPage() {
                     <Button variant="outline" size="sm" asChild>
                       <Link to={`/tasks/${task.id}`}>View Details</Link>
                     </Button>
-                    <Button variant="vpay" size="sm" asChild>
+                    <Button variant="SolanaPay" size="sm" asChild>
                       <Link to={`/tasks/${task.id}/apply`}>Apply Now</Link>
                     </Button>
                   </div>
@@ -285,7 +285,7 @@ export default function TasksPage() {
               }
             </p>
             {tasks.length === 0 ? (
-              <Button variant="vpay" asChild>
+              <Button variant="SolanaPay" asChild>
                 <Link to="/tasks/create">Post the First Task</Link>
               </Button>
             ) : (

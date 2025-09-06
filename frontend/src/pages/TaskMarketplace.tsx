@@ -35,7 +35,7 @@ const TaskMarketplace = () => {
   });
 
   // Contract configuration
-  const ESCROW_ADDRESS = import.meta.env.REACT_APP_VPAY_ESCROW_ADDRESS || '';
+  const ESCROW_ADDRESS = import.meta.env.REACT_APP_SolanaPay_ESCROW_ADDRESS || '';
   const ESCROW_ABI = [
     "function createEscrow(address buyer, address seller, uint256 amount, string memory description) external returns (uint256)",
     "function completeEscrow(uint256 escrowId) external",
@@ -262,7 +262,7 @@ const TaskMarketplace = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold text-white mb-2">Task Marketplace</h1>
-            <p className="text-purple-200">Find work or hire talent in the VPay ecosystem</p>
+            <p className="text-purple-200">Find work or hire talent in the SolanaPay ecosystem</p>
           </div>
           <div className="flex items-center space-x-4">
             {!isConnected ? (
@@ -343,7 +343,7 @@ const TaskMarketplace = () => {
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center text-purple-200">
                     <DollarSign className="w-4 h-4 mr-2" />
-                    <span className="font-semibold text-white">{task.amount} VPAY</span>
+                    <span className="font-semibold text-white">{task.amount} SolanaPay</span>
                   </div>
                   <div className="flex items-center text-purple-200">
                     <User className="w-4 h-4 mr-2" />
@@ -439,7 +439,7 @@ const TaskMarketplace = () => {
                 </div>
 
                 <div>
-                  <label className="block text-purple-200 text-sm font-medium mb-2">Reward (VPAY)</label>
+                  <label className="block text-purple-200 text-sm font-medium mb-2">Reward (SolanaPay)</label>
                   <input
                     type="number"
                     step="0.01"

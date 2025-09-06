@@ -69,7 +69,7 @@ const MerchantSettlementPage: React.FC = () => {
   const fetchSettlements = async () => {
     try {
       setLoading(true)
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       const response = await axios.get(`${API_BASE_URL}/settlements/history`, {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -87,7 +87,7 @@ const MerchantSettlementPage: React.FC = () => {
 
   const fetchOptions = async () => {
     try {
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       const response = await axios.get(`${API_BASE_URL}/settlements/options`, {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -102,7 +102,7 @@ const MerchantSettlementPage: React.FC = () => {
 
   const fetchBalance = async () => {
     try {
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       const response = await axios.get(`${API_BASE_URL}/wallet/balance`, {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -130,7 +130,7 @@ const MerchantSettlementPage: React.FC = () => {
 
     try {
       setCreating(true)
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       
       const response = await axios.post(`${API_BASE_URL}/settlements/create`, {
         amount: numAmount,
@@ -161,7 +161,7 @@ const MerchantSettlementPage: React.FC = () => {
 
   const handleCancelSettlement = async (settlementId: string) => {
     try {
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       const response = await axios.post(`${API_BASE_URL}/settlements/cancel/${settlementId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -378,7 +378,7 @@ const MerchantSettlementPage: React.FC = () => {
                     onClick={handleCreateSettlement}
                     disabled={creating || !amount || !destination || currentAmount <= 0 || currentAmount > balance}
                     className="w-full"
-                    variant="vpay"
+                    variant="SolanaPay"
                   >
                     {creating ? 'Creating...' : 'Create Settlement Request'}
                   </Button>

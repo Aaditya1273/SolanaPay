@@ -50,7 +50,7 @@ export const chainMetadata = {
 
 // RainbowKit configuration
 export const config = getDefaultConfig({
-  appName: 'VPay - Web3 Micro-Economy',
+  appName: 'SolanaPay - Web3 Micro-Economy',
   projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '2f05a7cdc2674bb905d564890b2b130c',
   chains: supportedChains,
   transports: {
@@ -79,19 +79,19 @@ export const defaultChain = polygon
 // Contract addresses for each chain
 export const contractAddresses = {
   [mainnet.id]: {
-    VPayPayments: import.meta.env.NEXT_PUBLIC_ETHEREUM_VPAY_PAYMENTS || '',
-    VPayEscrow: import.meta.env.NEXT_PUBLIC_ETHEREUM_VPAY_ESCROW || '',
-    VPayRewards: import.meta.env.NEXT_PUBLIC_ETHEREUM_VPAY_REWARDS || '',
+    SolanaPayPayments: import.meta.env.NEXT_PUBLIC_ETHEREUM_SolanaPay_PAYMENTS || '',
+    SolanaPayEscrow: import.meta.env.NEXT_PUBLIC_ETHEREUM_SolanaPay_ESCROW || '',
+    SolanaPayRewards: import.meta.env.NEXT_PUBLIC_ETHEREUM_SolanaPay_REWARDS || '',
   },
   [polygon.id]: {
-    VPayPayments: import.meta.env.NEXT_PUBLIC_POLYGON_VPAY_PAYMENTS || '',
-    VPayEscrow: import.meta.env.NEXT_PUBLIC_POLYGON_VPAY_ESCROW || '',
-    VPayRewards: import.meta.env.NEXT_PUBLIC_POLYGON_VPAY_REWARDS || '',
+    SolanaPayPayments: import.meta.env.NEXT_PUBLIC_POLYGON_SolanaPay_PAYMENTS || '',
+    SolanaPayEscrow: import.meta.env.NEXT_PUBLIC_POLYGON_SolanaPay_ESCROW || '',
+    SolanaPayRewards: import.meta.env.NEXT_PUBLIC_POLYGON_SolanaPay_REWARDS || '',
   },
   [bsc.id]: {
-    VPayPayments: import.meta.env.NEXT_PUBLIC_BSC_VPAY_PAYMENTS || '',
-    VPayEscrow: import.meta.env.NEXT_PUBLIC_BSC_VPAY_ESCROW || '',
-    VPayRewards: import.meta.env.NEXT_PUBLIC_BSC_VPAY_REWARDS || '',
+    SolanaPayPayments: import.meta.env.NEXT_PUBLIC_BSC_SolanaPay_PAYMENTS || '',
+    SolanaPayEscrow: import.meta.env.NEXT_PUBLIC_BSC_SolanaPay_ESCROW || '',
+    SolanaPayRewards: import.meta.env.NEXT_PUBLIC_BSC_SolanaPay_REWARDS || '',
   },
 } as const
 

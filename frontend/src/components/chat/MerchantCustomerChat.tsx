@@ -40,7 +40,7 @@ const MerchantCustomerChat: React.FC = () => {
 
   const fetchChatSessions = async () => {
     try {
-      const token = localStorage.getItem('vpay-token');
+      const token = localStorage.getItem('SolanaPay-token');
       if (!token) {
         setChatSessions([]);
         return;

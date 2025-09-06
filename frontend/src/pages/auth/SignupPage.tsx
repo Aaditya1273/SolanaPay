@@ -219,7 +219,7 @@ export default function SignupPage() {
           </div>
           <CardTitle className="text-2xl font-semibold text-gray-900">Create Account</CardTitle>
           <CardDescription className="text-gray-600">
-            Join VPay and start earning in the Web3 economy
+            Join SolanaPay and start earning in the Web3 economy
           </CardDescription>
         </CardHeader>
         <CardContent>

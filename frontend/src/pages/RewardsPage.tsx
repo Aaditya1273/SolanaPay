@@ -166,7 +166,7 @@ export default function RewardsPage() {
             onClick={() => setActiveTab(tab.id as any)}
             className={`flex-1 flex items-center justify-center space-x-2 px-4 py-2 rounded-md transition-colors ${
               activeTab === tab.id
-                ? 'bg-white dark:bg-gray-700 text-vpay-purple-600 shadow-sm'
+                ? 'bg-white dark:bg-gray-700 text-SolanaPay-purple-600 shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -183,8 +183,8 @@ export default function RewardsPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card>
               <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-vpay-purple-100 dark:bg-vpay-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Star className="h-8 w-8 text-vpay-purple-600" />
+                <div className="w-16 h-16 bg-SolanaPay-purple-100 dark:bg-SolanaPay-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Star className="h-8 w-8 text-SolanaPay-purple-600" />
                 </div>
                 <div className="text-3xl font-bold text-purple-600">{userStats?.totalPoints.toLocaleString() || 0}</div>
                 <div className="text-sm text-muted-foreground">Total Points</div>
@@ -254,7 +254,7 @@ export default function RewardsPage() {
                     key={tier.name}
                     className={`text-center p-3 rounded-lg border ${
                       tier.name === userStats?.currentTier
-                        ? 'border-vpay-purple-500 bg-vpay-purple-50 dark:bg-vpay-purple-900/20'
+                        ? 'border-SolanaPay-purple-500 bg-SolanaPay-purple-50 dark:bg-SolanaPay-purple-900/20'
                         : 'border-gray-200 dark:border-gray-700'
                     }`}
                   >
@@ -475,7 +475,7 @@ export default function RewardsPage() {
               <p className="text-muted-foreground">Spend your points on exclusive rewards</p>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-vpay-purple-600">
+              <div className="text-2xl font-bold text-SolanaPay-purple-600">
                 {userStats?.totalPoints.toLocaleString() || 0}
               </div>
               <div className="text-sm text-muted-foreground">Available Points</div>
@@ -498,7 +498,7 @@ export default function RewardsPage() {
                       <p className="text-sm text-muted-foreground">{reward.description}</p>
                     </div>
                     <div className="space-y-3">
-                      <div className="text-xl font-bold text-vpay-purple-600">
+                      <div className="text-xl font-bold text-SolanaPay-purple-600">
                         {reward.cost.toLocaleString()} points
                       </div>
                       <Button
@@ -536,7 +536,7 @@ export default function RewardsPage() {
                         <div className="text-xs text-muted-foreground">{u.address}</div>
                       </div>
                     </div>
-                    <div className="text-vpay-purple-600 font-semibold">{u.points?.toLocaleString()} pts</div>
+                    <div className="text-SolanaPay-purple-600 font-semibold">{u.points?.toLocaleString()} pts</div>
                   </div>
                 ))}
                 {leaderboard.length === 0 && (

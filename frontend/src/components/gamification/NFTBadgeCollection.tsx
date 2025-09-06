@@ -73,7 +73,7 @@ const NFTBadgeCollection: React.FC = () => {
 
       const response = await fetch(`/api/nft-badges/user/${userId}?${params}`, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         }
       });
       const data = await response.json();
@@ -93,7 +93,7 @@ const NFTBadgeCollection: React.FC = () => {
       const userId = 'current-user'; // This would come from auth context
       const response = await fetch(`/api/nft-badges/user/${userId}/stats`, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         }
       });
       const data = await response.json();
@@ -112,7 +112,7 @@ const NFTBadgeCollection: React.FC = () => {
       const response = await fetch(`/api/nft-badges/${badgeId}/mint`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         }
       });
       const data = await response.json();

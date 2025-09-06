@@ -30,8 +30,8 @@ export default function Header({ onMenuClick }: HeaderProps) {
         </Button>
         
         <div className="hidden lg:block">
-          <h1 className="text-xl font-bold bg-gradient-to-r from-vpay-purple-500 to-vpay-purple-600 bg-clip-text text-transparent">
-            VPay
+          <h1 className="text-xl font-bold bg-gradient-to-r from-SolanaPay-purple-500 to-SolanaPay-purple-600 bg-clip-text text-transparent">
+            SolanaPay
           </h1>
         </div>
       </div>

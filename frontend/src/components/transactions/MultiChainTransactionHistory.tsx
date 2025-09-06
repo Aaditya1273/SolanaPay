@@ -273,7 +273,7 @@ const MultiChainTransactionHistory: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'vpay-transactions.csv';
+    a.download = 'SolanaPay-transactions.csv';
     a.click();
     URL.revokeObjectURL(url);
   };

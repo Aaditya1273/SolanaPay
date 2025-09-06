@@ -237,7 +237,7 @@ router.post('/metadata/upload', async (req, res) => {
     });
     
     // Create token URI
-    const tokenURI = `https://api.vpay.com/sbt/metadata/${metadataId}`;
+    const tokenURI = `https://api.SolanaPay.com/sbt/metadata/${metadataId}`;
     
     res.json({
       success: true,

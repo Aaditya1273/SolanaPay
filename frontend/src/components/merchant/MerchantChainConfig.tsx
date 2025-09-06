@@ -69,7 +69,7 @@ const MerchantChainConfig: React.FC = () => {
       defaultFeePercent: 2.5,
       autoSettlement: true,
       settlementCurrency: 'USD',
-      webhookUrl: 'https://api.merchant.com/webhooks/vpay'
+      webhookUrl: 'https://api.merchant.com/webhooks/SolanaPay'
     }
   });
 
@@ -406,7 +406,7 @@ const MerchantChainConfig: React.FC = () => {
               onChange={(e) => updateGlobalSettings({ 
                 webhookUrl: e.target.value 
               })}
-              placeholder="https://your-api.com/webhooks/vpay"
+              placeholder="https://your-api.com/webhooks/SolanaPay"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
             <p className="text-xs text-gray-500 mt-1">

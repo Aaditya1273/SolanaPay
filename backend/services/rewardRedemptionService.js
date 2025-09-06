@@ -10,9 +10,9 @@ class RewardRedemptionService {
     
     // Contract addresses (update these after deployment)
     this.contractAddresses = {
-      VPayRewards: process.env.VPAY_REWARDS_ADDRESS || '',
-      VPayNFT: process.env.VPAY_NFT_ADDRESS || '',
-      VPayToken: process.env.VPAY_TOKEN_ADDRESS || ''
+      SolanaPayRewards: process.env.SolanaPay_REWARDS_ADDRESS || '',
+      SolanaPayNFT: process.env.SolanaPay_NFT_ADDRESS || '',
+      SolanaPayToken: process.env.SolanaPay_TOKEN_ADDRESS || ''
     };
 
     // Contract ABIs
@@ -76,7 +76,7 @@ class RewardRedemptionService {
       const metadata = {
         name: rewardData.title,
         description: rewardData.description,
-        image: `https://vpay.app/nft/${rewardData.id}.png`,
+        image: `https://SolanaPay.app/nft/${rewardData.id}.png`,
         attributes: [
           {
             trait_type: "Reward Type",
@@ -134,11 +134,11 @@ class RewardRedemptionService {
   async transferBonusTokens(userAddress, amount) {
     try {
       // In a real implementation, this would:
-      // 1. Call VPay token contract to transfer tokens
+      // 1. Call SolanaPay token contract to transfer tokens
       // 2. Update user's token balance
       // 3. Create transaction record
 
-      console.log(`Transferring ${amount} VPay tokens to ${userAddress}`);
+      console.log(`Transferring ${amount} SolanaPay tokens to ${userAddress}`);
 
       // Mock token transfer
       const transaction = {
@@ -153,7 +153,7 @@ class RewardRedemptionService {
       return {
         success: true,
         transaction,
-        message: `${amount} VPay tokens transferred successfully`
+        message: `${amount} SolanaPay tokens transferred successfully`
       };
     } catch (error) {
       console.error('Error transferring bonus tokens:', error);
@@ -164,7 +164,7 @@ class RewardRedemptionService {
   async generateDiscountCode(userAddress, percentage, rewardData) {
     try {
       // Generate unique discount code
-      const discountCode = `VPAY${percentage}${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+      const discountCode = `SolanaPay${percentage}${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
       
       const discountDetails = {
         code: discountCode,

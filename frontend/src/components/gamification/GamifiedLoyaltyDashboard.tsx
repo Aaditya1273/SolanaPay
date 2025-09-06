@@ -57,11 +57,11 @@ const GamifiedLoyaltyDashboard: React.FC = () => {
     try {
       // This would be a combined API call to get all gamification stats
       const [levelRes, questsRes, streaksRes, badgesRes, leaderboardRes] = await Promise.all([
-        fetch('/api/user/level', { headers: { 'Authorization': `Bearer ${localStorage.getItem('vpay-token')}` } }),
-        fetch('/api/quests', { headers: { 'Authorization': `Bearer ${localStorage.getItem('vpay-token')}` } }),
-        fetch('/api/streaks', { headers: { 'Authorization': `Bearer ${localStorage.getItem('vpay-token')}` } }),
-        fetch('/api/nft-badges/user/current-user/stats', { headers: { 'Authorization': `Bearer ${localStorage.getItem('vpay-token')}` } }),
-        fetch('/api/leaderboards/global/points/rank/current-user', { headers: { 'Authorization': `Bearer ${localStorage.getItem('vpay-token')}` } })
+        fetch('/api/user/level', { headers: { 'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}` } }),
+        fetch('/api/quests', { headers: { 'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}` } }),
+        fetch('/api/streaks', { headers: { 'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}` } }),
+        fetch('/api/nft-badges/user/current-user/stats', { headers: { 'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}` } }),
+        fetch('/api/leaderboards/global/points/rank/current-user', { headers: { 'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}` } })
       ]);
 
       // Parse real API responses
@@ -101,7 +101,7 @@ const GamifiedLoyaltyDashboard: React.FC = () => {
   const fetchProgressData = async () => {
     try {
       const response = await fetch('/api/user/progress/weekly', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('vpay-token')}` }
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}` }
       });
       const data = await response.json();
       setProgressData(data.data || []);
@@ -134,7 +134,7 @@ const GamifiedLoyaltyDashboard: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-2xl font-bold">Level {stats?.userLevel.level}</h2>
-              <p className="opacity-90">VPay Champion</p>
+              <p className="opacity-90">SolanaPay Champion</p>
             </div>
             <div className="text-right">
               <div className="text-3xl font-bold">{stats?.userLevel.xp.toLocaleString()}</div>

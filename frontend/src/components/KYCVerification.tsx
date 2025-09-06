@@ -63,7 +63,7 @@ export default function KYCVerification() {
       const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3002/api'}/kyc/upload`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         },
         body: formData
       })
@@ -97,7 +97,7 @@ export default function KYCVerification() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         },
         body: JSON.stringify(personalInfo)
       })
@@ -129,7 +129,7 @@ export default function KYCVerification() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         },
         body: JSON.stringify({
           documents: uploadedDocs.map(doc => ({ type: doc.type, uploaded: true }))

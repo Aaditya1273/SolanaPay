@@ -123,7 +123,7 @@ export default function CreateTaskPage() {
       }
 
       // Call the actual API to create the task
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       console.log('Token:', token ? 'Present' : 'Missing')
       console.log('Task data:', taskData)
       
@@ -403,7 +403,7 @@ export default function CreateTaskPage() {
                   {formData.skills.map(skill => (
                     <span
                       key={skill}
-                      className="inline-flex items-center space-x-1 px-2 py-1 bg-vpay-purple-100 dark:bg-vpay-purple-900/20 text-vpay-purple-700 dark:text-vpay-purple-300 text-sm rounded-full"
+                      className="inline-flex items-center space-x-1 px-2 py-1 bg-SolanaPay-purple-100 dark:bg-SolanaPay-purple-900/20 text-SolanaPay-purple-700 dark:text-SolanaPay-purple-300 text-sm rounded-full"
                     >
                       <span>{skill}</span>
                       <button
@@ -455,7 +455,7 @@ export default function CreateTaskPage() {
           </Button>
           <Button
             type="submit"
-            variant="vpay"
+            variant="SolanaPay"
             disabled={!isFormValid || isLoading}
           >
             {isLoading ? 'Posting...' : 'Post Task'}

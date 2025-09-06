@@ -127,7 +127,7 @@ export default function Layout({ children }: LayoutProps) {
                     <div className="absolute -inset-0.5 bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-600 rounded-xl opacity-20 group-hover:opacity-40 transition-opacity duration-300 blur-sm"></div>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">VPay</span>
+                    <span className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">SolanaPay</span>
                     <span className="text-xs font-medium text-gray-500 dark:text-gray-400 -mt-1 tracking-widest uppercase">Professional</span>
                   </div>
                 </Link>

@@ -45,7 +45,7 @@ export default function SendPaymentPage() {
   const fetchContactsAndRecent = async () => {
     try {
       setLoadingData(true)
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       if (!token) return
 
       // Fetch contacts (other users)
@@ -102,7 +102,7 @@ export default function SendPaymentPage() {
     setIsLoading(true)
     
     try {
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       if (!token) {
         toast.error('Please log in to send payments')
         return
@@ -155,20 +155,20 @@ export default function SendPaymentPage() {
       {/* Progress */}
       <div className="flex items-center space-x-2">
         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-          step === 'recipient' ? 'bg-vpay-purple-500 text-white' : 'bg-vpay-purple-100 text-vpay-purple-600'
+          step === 'recipient' ? 'bg-SolanaPay-purple-500 text-white' : 'bg-SolanaPay-purple-100 text-SolanaPay-purple-600'
         }`}>
           1
         </div>
-        <div className={`flex-1 h-1 ${step !== 'recipient' ? 'bg-vpay-purple-500' : 'bg-gray-200'}`} />
+        <div className={`flex-1 h-1 ${step !== 'recipient' ? 'bg-SolanaPay-purple-500' : 'bg-gray-200'}`} />
         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-          step === 'amount' ? 'bg-vpay-purple-500 text-white' : 
-          step === 'confirm' ? 'bg-vpay-purple-100 text-vpay-purple-600' : 'bg-gray-200 text-gray-500'
+          step === 'amount' ? 'bg-SolanaPay-purple-500 text-white' : 
+          step === 'confirm' ? 'bg-SolanaPay-purple-100 text-SolanaPay-purple-600' : 'bg-gray-200 text-gray-500'
         }`}>
           2
         </div>
-        <div className={`flex-1 h-1 ${step === 'confirm' ? 'bg-vpay-purple-500' : 'bg-gray-200'}`} />
+        <div className={`flex-1 h-1 ${step === 'confirm' ? 'bg-SolanaPay-purple-500' : 'bg-gray-200'}`} />
         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-          step === 'confirm' ? 'bg-vpay-purple-500 text-white' : 'bg-gray-200 text-gray-500'
+          step === 'confirm' ? 'bg-SolanaPay-purple-500 text-white' : 'bg-gray-200 text-gray-500'
         }`}>
           3
         </div>
@@ -244,7 +244,7 @@ export default function SendPaymentPage() {
                       onClick={() => handleSelectRecent(transaction)}
                       className="flex items-center space-x-3 p-3 rounded-lg border cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
-                      <div className="w-10 h-10 rounded-full bg-vpay-purple-100 dark:bg-vpay-purple-900 flex items-center justify-center text-vpay-purple-600 dark:text-vpay-purple-300 font-semibold">
+                      <div className="w-10 h-10 rounded-full bg-SolanaPay-purple-100 dark:bg-SolanaPay-purple-900 flex items-center justify-center text-SolanaPay-purple-600 dark:text-SolanaPay-purple-300 font-semibold">
                         {transaction.recipientName?.charAt(0) || transaction.recipientUsername.charAt(0).toUpperCase()}
                       </div>
                       <div className="flex-1">
@@ -284,7 +284,7 @@ export default function SendPaymentPage() {
                       onClick={() => handleSelectContact(contact)}
                       className="flex items-center space-x-3 p-3 rounded-lg border cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
-                      <div className="w-10 h-10 rounded-full bg-vpay-purple-100 dark:bg-vpay-purple-900 flex items-center justify-center text-vpay-purple-600 dark:text-vpay-purple-300 font-semibold">
+                      <div className="w-10 h-10 rounded-full bg-SolanaPay-purple-100 dark:bg-SolanaPay-purple-900 flex items-center justify-center text-SolanaPay-purple-600 dark:text-SolanaPay-purple-300 font-semibold">
                         {contact.avatar ? (
                           <img src={contact.avatar} alt={contact.fullName || contact.username} className="w-full h-full rounded-full object-cover" />
                         ) : (
@@ -361,7 +361,7 @@ export default function SendPaymentPage() {
               </div>
 
               <Button
-                variant="vpay"
+                variant="SolanaPay"
                 onClick={handleContinueToConfirm}
                 disabled={!amount || sendAmount <= 0 || total > availableBalance}
                 className="w-full"
@@ -381,7 +381,7 @@ export default function SendPaymentPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-vpay-purple-100 dark:bg-vpay-purple-900 flex items-center justify-center text-2xl mx-auto mb-4 text-vpay-purple-600 dark:text-vpay-purple-300 font-semibold">
+                <div className="w-16 h-16 rounded-full bg-SolanaPay-purple-100 dark:bg-SolanaPay-purple-900 flex items-center justify-center text-2xl mx-auto mb-4 text-SolanaPay-purple-600 dark:text-SolanaPay-purple-300 font-semibold">
                   {selectedContact?.avatar ? (
                     <img src={selectedContact.avatar} alt={selectedContact.fullName || selectedContact.username} className="w-full h-full rounded-full object-cover" />
                   ) : (
@@ -416,7 +416,7 @@ export default function SendPaymentPage() {
               </div>
 
               <Button
-                variant="vpay"
+                variant="SolanaPay"
                 onClick={handleSend}
                 disabled={isLoading}
                 className="w-full"

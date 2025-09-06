@@ -152,9 +152,9 @@ export const DIDProvider: React.FC<DIDProviderProps> = ({ children }) => {
         authentication: [`${didIdentifier}#controller`],
         service: [
           {
-            id: `${didIdentifier}#vpay-service`,
-            type: 'VPayIdentityService',
-            serviceEndpoint: 'https://api.vpay.com/did'
+            id: `${didIdentifier}#SolanaPay-service`,
+            type: 'SolanaPayIdentityService',
+            serviceEndpoint: 'https://api.SolanaPay.com/did'
           }
         ],
         created: new Date().toISOString(),
@@ -218,7 +218,7 @@ export const DIDProvider: React.FC<DIDProviderProps> = ({ children }) => {
     }
 
     try {
-      const challenge = `VPay DID Authentication: ${Date.now()}`;
+      const challenge = `SolanaPay DID Authentication: ${Date.now()}`;
       const signature = await signMessageAsync({ message: challenge });
       
       // Verify signature and authenticate
@@ -251,7 +251,7 @@ export const DIDProvider: React.FC<DIDProviderProps> = ({ children }) => {
     const credential: VerifiableCredential = {
       '@context': [
         'https://www.w3.org/2018/credentials/v1',
-        'https://vpay.com/credentials/v1'
+        'https://SolanaPay.com/credentials/v1'
       ],
       id: `urn:uuid:${crypto.randomUUID()}`,
       type: ['VerifiableCredential', credentialData.type],
@@ -392,11 +392,11 @@ export const DIDProvider: React.FC<DIDProviderProps> = ({ children }) => {
         const reputationCred: ReputationCredential = {
           '@context': [
             'https://www.w3.org/2018/credentials/v1',
-            'https://vpay.com/credentials/reputation/v1'
+            'https://SolanaPay.com/credentials/reputation/v1'
           ],
           id: `urn:uuid:${crypto.randomUUID()}`,
           type: ['VerifiableCredential', 'ReputationCredential'],
-          issuer: 'did:vpay:reputation-service',
+          issuer: 'did:SolanaPay:reputation-service',
           issuanceDate: new Date().toISOString(),
           credentialSubject: {
             id: did,
@@ -408,9 +408,9 @@ export const DIDProvider: React.FC<DIDProviderProps> = ({ children }) => {
             calculatedAt: new Date().toISOString()
           },
           proof: {
-            type: 'VPayReputationProof',
+            type: 'SolanaPayReputationProof',
             created: new Date().toISOString(),
-            verificationMethod: 'did:vpay:reputation-service#key-1',
+            verificationMethod: 'did:SolanaPay:reputation-service#key-1',
             proofPurpose: 'assertionMethod',
             jws: reputationData.signature
           }

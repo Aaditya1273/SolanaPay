@@ -11,7 +11,7 @@ const api = axios.create({
 // Request interceptor to add auth token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('vpay-token')
+    const token = localStorage.getItem('SolanaPay-token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -27,7 +27,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('vpay-token')
+      localStorage.removeItem('SolanaPay-token')
       window.location.href = '/login'
     }
     return Promise.reject(error)
@@ -47,6 +47,17 @@ export const authAPI = {
   logout: () => api.post('/auth/logout'),
   
   refreshToken: () => api.post('/auth/refresh'),
+
+  syncWeb3User: (data: {
+    walletAddress: string
+    email?: string
+    name?: string
+    provider: string
+    profileImage?: string
+  }) => api.post('/auth/web3-sync', data),
+
+  generateSolanaWallet: (data: { evmAddress: string }) =>
+    api.post('/auth/generate-solana-wallet', data),
 }
 
 // Wallet API

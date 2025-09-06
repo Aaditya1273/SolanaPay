@@ -3,7 +3,7 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 async function main() {
-  console.log('🚀 Initializing VPay database...')
+  console.log('🚀 Initializing SolanaPay database...')
   
   try {
     // Create sample achievements
@@ -24,7 +24,7 @@ async function main() {
       },
       {
         title: 'Early Adopter',
-        description: 'Join VPay in the first month',
+        description: 'Join SolanaPay in the first month',
         icon: '🌟',
         points: 250,
         condition: JSON.stringify({ type: 'registration_date', value: '2024-01-31' })
@@ -65,8 +65,8 @@ async function main() {
         stock: null
       },
       {
-        title: 'VPay NFT Badge',
-        description: 'Exclusive VPay community NFT badge',
+        title: 'SolanaPay NFT Badge',
+        description: 'Exclusive SolanaPay community NFT badge',
         type: 'NFT',
         cost: 1000,
         value: 50,

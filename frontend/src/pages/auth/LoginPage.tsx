@@ -33,7 +33,7 @@ export default function LoginPage() {
           </div>
           <CardTitle className="text-2xl font-semibold text-gray-900">Welcome back</CardTitle>
           <CardDescription className="text-gray-600">
-            Sign in to your VPay account to continue
+            Sign in to your SolanaPay account to continue
           </CardDescription>
         </CardHeader>
         <CardContent>

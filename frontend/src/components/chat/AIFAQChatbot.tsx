@@ -63,8 +63,8 @@ const AIFAQChatbot: React.FC = () => {
     },
     {
       id: 'security-features',
-      question: 'What security features does VPay have?',
-      answer: 'VPay uses multi-signature wallets, encrypted transactions, KYC verification, and real-time fraud detection to keep your funds secure.',
+      question: 'What security features does SolanaPay have?',
+      answer: 'SolanaPay uses multi-signature wallets, encrypted transactions, KYC verification, and real-time fraud detection to keep your funds secure.',
       category: 'security',
       keywords: ['security', 'safe', 'protection', 'fraud', 'encryption'],
       icon: <Shield className="h-4 w-4" />
@@ -158,7 +158,7 @@ const AIFAQChatbot: React.FC = () => {
           </div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">VeryChat AI Assistant</h1>
-        <p className="text-gray-600 dark:text-gray-300">Get instant answers to your VPay questions</p>
+        <p className="text-gray-600 dark:text-gray-300">Get instant answers to your SolanaPay questions</p>
       </div>
 
       {/* Quick Actions */}
@@ -266,10 +266,10 @@ const AIFAQChatbot: React.FC = () => {
           <h3 className="font-medium text-gray-900 dark:text-white">Need more help?</h3>
         </div>
         <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-          Ask me anything about VPay! I can help with payments, receipts, wallet issues, and more.
+          Ask me anything about SolanaPay! I can help with payments, receipts, wallet issues, and more.
         </p>
         <button
-          onClick={() => sendAIQuery('I need help with VPay')}
+          onClick={() => sendAIQuery('I need help with SolanaPay')}
           className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
         >
           Start AI Chat

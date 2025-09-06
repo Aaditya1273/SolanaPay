@@ -175,7 +175,7 @@ const RewardAnalyticsDashboard: React.FC = () => {
       <div className="text-center py-12">
         <Activity className="h-12 w-12 text-gray-400 mx-auto mb-4" />
         <h3 className="text-xl font-medium text-gray-800 mb-2">No Analytics Data</h3>
-        <p className="text-gray-600 mb-6">Start using VPay to see your reward analytics!</p>
+        <p className="text-gray-600 mb-6">Start using SolanaPay to see your reward analytics!</p>
         <button
           onClick={handleRefresh}
           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium"

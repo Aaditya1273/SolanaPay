@@ -193,7 +193,7 @@ export const LoyaltyDashboard: React.FC = () => {
         <div>
           <h1 className="text-3xl font-bold">Loyalty Dashboard</h1>
           <p className="text-gray-600 mt-1">
-            Track your achievements, streaks, and reputation on VPay
+            Track your achievements, streaks, and reputation on SolanaPay
           </p>
         </div>
         <Button onClick={handleRefreshAchievements} disabled={loading}>

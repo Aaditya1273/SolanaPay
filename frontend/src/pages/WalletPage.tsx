@@ -68,14 +68,14 @@ export default function WalletPage() {
 
         <Card className="text-center py-12">
           <CardContent>
-            <div className="w-20 h-20 bg-gradient-to-r from-vpay-purple-500 to-vpay-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-20 h-20 bg-gradient-to-r from-SolanaPay-purple-500 to-SolanaPay-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <Send className="h-10 w-10 text-white" />
             </div>
             <h3 className="text-xl font-semibold mb-2">Connect Your Wallet</h3>
             <p className="text-muted-foreground mb-6">
               Connect your Web3 wallet to start sending and receiving payments
             </p>
-            <Button variant="vpay" onClick={connectWallet}>
+            <Button variant="SolanaPay" onClick={connectWallet}>
               Connect Wallet
             </Button>
           </CardContent>
@@ -95,7 +95,7 @@ export default function WalletPage() {
       </div>
 
       {/* Balance Card */}
-      <Card className="bg-gradient-to-r from-vpay-purple-500 to-vpay-purple-600 text-white">
+      <Card className="bg-gradient-to-r from-SolanaPay-purple-500 to-SolanaPay-purple-600 text-white">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-white">Total Balance</CardTitle>
@@ -205,7 +205,7 @@ export default function WalletPage() {
         <CardContent>
           {loading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="h-6 w-6 animate-spin text-vpay-purple-600" />
+              <Loader2 className="h-6 w-6 animate-spin text-SolanaPay-purple-600" />
               <span className="ml-2 text-muted-foreground">Loading transactions...</span>
             </div>
           ) : error ? (
@@ -219,7 +219,7 @@ export default function WalletPage() {
             <div className="text-center py-8">
               <p className="text-muted-foreground">No transactions yet</p>
               <p className="text-sm text-muted-foreground mt-2">
-                Start using VPay to see your transaction history
+                Start using SolanaPay to see your transaction history
               </p>
             </div>
           ) : (

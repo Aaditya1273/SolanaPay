@@ -7,11 +7,11 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 /**
- * @title VPayPayments
- * @dev A secure payment contract for the VPay ecosystem
+ * @title SolanaPayPayments
+ * @dev A secure payment contract for the SolanaPay ecosystem
  * @notice This contract handles deposits, transfers, and withdrawals with security features
  */
-contract VPayPayments is ReentrancyGuard, Ownable, Pausable {
+contract SolanaPayPayments is ReentrancyGuard, Ownable, Pausable {
     using SafeMath for uint256;
 
     // State variables
@@ -77,20 +77,20 @@ contract VPayPayments is ReentrancyGuard, Ownable, Pausable {
     modifier onlyAuthorized() {
         require(
             authorizedOperators[msg.sender] || msg.sender == owner(),
-            "VPayPayments: Not authorized"
+            "SolanaPayPayments: Not authorized"
         );
         _;
     }
 
     modifier validAddress(address _address) {
-        require(_address != address(0), "VPayPayments: Invalid address");
+        require(_address != address(0), "SolanaPayPayments: Invalid address");
         _;
     }
 
     modifier sufficientBalance(uint256 _amount) {
         require(
             balances[msg.sender] >= _amount,
-            "VPayPayments: Insufficient balance"
+            "SolanaPayPayments: Insufficient balance"
         );
         _;
     }
@@ -100,7 +100,7 @@ contract VPayPayments is ReentrancyGuard, Ownable, Pausable {
      * @param _feeRecipient Address to receive collected fees
      */
     constructor(address _feeRecipient) {
-        require(_feeRecipient != address(0), "VPayPayments: Invalid fee recipient");
+        require(_feeRecipient != address(0), "SolanaPayPayments: Invalid fee recipient");
         feeRecipient = _feeRecipient;
     }
 
@@ -109,7 +109,7 @@ contract VPayPayments is ReentrancyGuard, Ownable, Pausable {
      * @notice Users can deposit ETH to their balance
      */
     function deposit() external payable nonReentrant whenNotPaused {
-        require(msg.value > 0, "VPayPayments: Deposit amount must be greater than 0");
+        require(msg.value > 0, "SolanaPayPayments: Deposit amount must be greater than 0");
         
         balances[msg.sender] = balances[msg.sender].add(msg.value);
         totalDeposits = totalDeposits.add(msg.value);

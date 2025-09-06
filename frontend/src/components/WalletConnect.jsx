@@ -122,7 +122,7 @@ export default function WalletConnect() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-            MetaMask wallet is required to use VPay. Please install MetaMask to continue.
+            MetaMask wallet is required to use SolanaPay. Please install MetaMask to continue.
           </p>
           <Button 
             onClick={() => window.open('https://metamask.io/download/', '_blank')}
@@ -151,7 +151,7 @@ export default function WalletConnect() {
               <Wallet className="h-8 w-8 text-gray-400" />
             </div>
             <p className="text-muted-foreground">
-              Connect your wallet to access VPay features
+              Connect your wallet to access SolanaPay features
             </p>
           </div>
           
@@ -177,7 +177,7 @@ export default function WalletConnect() {
               onClick={handleConnect} 
               disabled={isConnecting}
               className="w-full"
-              variant="vpay"
+              variant="SolanaPay"
             >
               {isConnecting ? (
                 <>
@@ -199,7 +199,7 @@ export default function WalletConnect() {
               href="https://metamask.io/faqs/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-vpay-purple-600 hover:underline"
+              className="text-SolanaPay-purple-600 hover:underline"
             >
               Learn more about MetaMask
             </a>

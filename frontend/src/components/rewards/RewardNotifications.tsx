@@ -35,7 +35,7 @@ const RewardNotifications: React.FC = () => {
 
   const fetchNotifications = async () => {
     try {
-      const token = localStorage.getItem('vpay-token');
+      const token = localStorage.getItem('SolanaPay-token');
       if (!token) {
         setNotifications([]);
         setUnreadCount(0);

@@ -286,11 +286,11 @@ router.post('/kyc/documents', upload.array('documents', 5), async (req, res) => 
         const kycCredential = {
           '@context': [
             'https://www.w3.org/2018/credentials/v1',
-            'https://vpay.com/credentials/kyc/v1'
+            'https://SolanaPay.com/credentials/kyc/v1'
           ],
           id: `urn:uuid:${crypto.randomUUID()}`,
           type: ['VerifiableCredential', 'KYCCredential'],
-          issuer: 'did:vpay:kyc-service',
+          issuer: 'did:SolanaPay:kyc-service',
           issuanceDate: new Date().toISOString(),
           credentialSubject: {
             id: did,
@@ -302,9 +302,9 @@ router.post('/kyc/documents', upload.array('documents', 5), async (req, res) => 
             documentType: 'government_id'
           },
           proof: {
-            type: 'VPayKYCProof',
+            type: 'SolanaPayKYCProof',
             created: new Date().toISOString(),
-            verificationMethod: 'did:vpay:kyc-service#key-1',
+            verificationMethod: 'did:SolanaPay:kyc-service#key-1',
             proofPurpose: 'assertionMethod',
             jws: crypto.randomBytes(32).toString('hex') // Mock signature
           }

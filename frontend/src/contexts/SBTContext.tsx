@@ -126,12 +126,12 @@ export const SBTProvider: React.FC<SBTProviderProps> = ({ children }) => {
     {
       id: 'first_payment',
       name: 'First Payment',
-      description: 'Complete your first payment on VPay',
+      description: 'Complete your first payment on SolanaPay',
       requiredAmount: 1,
       tokenReward: {
-        name: 'VPay Pioneer',
-        description: 'Congratulations on your first VPay payment!',
-        image: 'https://api.vpay.com/sbt/images/first_payment.png',
+        name: 'SolanaPay Pioneer',
+        description: 'Congratulations on your first SolanaPay payment!',
+        image: 'https://api.SolanaPay.com/sbt/images/first_payment.png',
         attributes: [
           { trait_type: 'Achievement Type', value: 'First Payment' },
           { trait_type: 'Rarity', value: 'Common' },
@@ -146,12 +146,12 @@ export const SBTProvider: React.FC<SBTProviderProps> = ({ children }) => {
     {
       id: 'payment_100',
       name: 'Century Club',
-      description: 'Complete 100 payments on VPay',
+      description: 'Complete 100 payments on SolanaPay',
       requiredAmount: 100,
       tokenReward: {
-        name: 'VPay Century',
-        description: 'You have completed 100 payments on VPay!',
-        image: 'https://api.vpay.com/sbt/images/century.png',
+        name: 'SolanaPay Century',
+        description: 'You have completed 100 payments on SolanaPay!',
+        image: 'https://api.SolanaPay.com/sbt/images/century.png',
         attributes: [
           { trait_type: 'Achievement Type', value: 'Payment Milestone' },
           { trait_type: 'Rarity', value: 'Rare' },
@@ -166,12 +166,12 @@ export const SBTProvider: React.FC<SBTProviderProps> = ({ children }) => {
     {
       id: 'payment_1000',
       name: 'Payment Master',
-      description: 'Complete 1000 payments on VPay',
+      description: 'Complete 1000 payments on SolanaPay',
       requiredAmount: 1000,
       tokenReward: {
-        name: 'VPay Master',
+        name: 'SolanaPay Master',
         description: 'Elite status: 1000 payments completed!',
-        image: 'https://api.vpay.com/sbt/images/master.png',
+        image: 'https://api.SolanaPay.com/sbt/images/master.png',
         attributes: [
           { trait_type: 'Achievement Type', value: 'Payment Milestone' },
           { trait_type: 'Rarity', value: 'Legendary' },
@@ -195,7 +195,7 @@ export const SBTProvider: React.FC<SBTProviderProps> = ({ children }) => {
       tokenReward: {
         name: 'Week Warrior',
         description: 'Consistent engagement for 7 days straight!',
-        image: 'https://api.vpay.com/sbt/images/week_warrior.png',
+        image: 'https://api.SolanaPay.com/sbt/images/week_warrior.png',
         attributes: [
           { trait_type: 'Achievement Type', value: 'Login Streak' },
           { trait_type: 'Rarity', value: 'Common' },
@@ -216,7 +216,7 @@ export const SBTProvider: React.FC<SBTProviderProps> = ({ children }) => {
       tokenReward: {
         name: 'Monthly Champion',
         description: 'Incredible dedication: 30 days of continuous engagement!',
-        image: 'https://api.vpay.com/sbt/images/monthly_champion.png',
+        image: 'https://api.SolanaPay.com/sbt/images/monthly_champion.png',
         attributes: [
           { trait_type: 'Achievement Type', value: 'Login Streak' },
           { trait_type: 'Rarity', value: 'Epic' },
@@ -237,7 +237,7 @@ export const SBTProvider: React.FC<SBTProviderProps> = ({ children }) => {
       tokenReward: {
         name: 'Payment Streak Pro',
         description: 'Consistent payment activity for 10 days!',
-        image: 'https://api.vpay.com/sbt/images/payment_streak.png',
+        image: 'https://api.SolanaPay.com/sbt/images/payment_streak.png',
         attributes: [
           { trait_type: 'Achievement Type', value: 'Payment Streak' },
           { trait_type: 'Rarity', value: 'Rare' },

@@ -17,7 +17,7 @@ const WalletDashboard = () => {
   const [sendLoading, setSendLoading] = useState(false);
 
   // Contract configuration
-  const VPAY_PAYMENTS_ADDRESS = import.meta.env.REACT_APP_VPAY_PAYMENTS_ADDRESS || '';
+  const SolanaPay_PAYMENTS_ADDRESS = import.meta.env.REACT_APP_SolanaPay_PAYMENTS_ADDRESS || '';
   const PAYMENT_ABI = [
     "function deposit() external payable",
     "function transfer(address to, uint256 amount) external",
@@ -58,9 +58,9 @@ const WalletDashboard = () => {
       const ethBal = await provider.getBalance(address);
       setEthBalance(ethers.formatEther(ethBal));
       
-      // Get VPay token balance from contract
-      if (VPAY_PAYMENTS_ADDRESS) {
-        const contract = new ethers.Contract(VPAY_PAYMENTS_ADDRESS, PAYMENT_ABI, provider);
+      // Get SolanaPay token balance from contract
+      if (SolanaPay_PAYMENTS_ADDRESS) {
+        const contract = new ethers.Contract(SolanaPay_PAYMENTS_ADDRESS, PAYMENT_ABI, provider);
         const tokenBal = await contract.balances(address);
         setBalance(ethers.formatEther(tokenBal));
       }
@@ -128,8 +128,8 @@ const WalletDashboard = () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       
-      if (VPAY_PAYMENTS_ADDRESS) {
-        const contract = new ethers.Contract(VPAY_PAYMENTS_ADDRESS, PAYMENT_ABI, signer);
+      if (SolanaPay_PAYMENTS_ADDRESS) {
+        const contract = new ethers.Contract(SolanaPay_PAYMENTS_ADDRESS, PAYMENT_ABI, signer);
         const amount = ethers.parseEther(sendForm.amount);
         
         const tx = await contract.transfer(sendForm.recipient, amount);
@@ -144,7 +144,7 @@ const WalletDashboard = () => {
         
         alert('Transaction sent successfully!');
       } else {
-        alert('VPay Payments contract not configured');
+        alert('SolanaPay Payments contract not configured');
       }
     } catch (error) {
       console.error('Error sending tokens:', error);
@@ -197,7 +197,7 @@ const WalletDashboard = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">Wallet Dashboard</h1>
-          <p className="text-purple-200">Manage your VPay tokens and transactions</p>
+          <p className="text-purple-200">Manage your SolanaPay tokens and transactions</p>
         </div>
 
         {!isConnected ? (
@@ -248,9 +248,9 @@ const WalletDashboard = () => {
                   {/* Balances */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-purple-900/30 rounded-xl p-4">
-                      <p className="text-purple-200 text-sm">VPay Tokens</p>
+                      <p className="text-purple-200 text-sm">SolanaPay Tokens</p>
                       <p className="text-2xl font-bold text-white">{parseFloat(balance).toFixed(2)}</p>
-                      <p className="text-purple-300 text-sm">VPAY</p>
+                      <p className="text-purple-300 text-sm">SolanaPay</p>
                     </div>
                     <div className="bg-purple-900/30 rounded-xl p-4">
                       <p className="text-purple-200 text-sm">ETH Balance</p>
@@ -287,7 +287,7 @@ const WalletDashboard = () => {
                           </div>
                           <div>
                             <p className="text-white font-semibold">
-                              {tx.type === 'send' ? 'Sent' : 'Received'} {tx.amount} VPAY
+                              {tx.type === 'send' ? 'Sent' : 'Received'} {tx.amount} SolanaPay
                             </p>
                             <p className="text-purple-200 text-sm">
                               {tx.type === 'send' ? 'To' : 'From'}: {formatAddress(tx.to || tx.from)}
@@ -343,7 +343,7 @@ const WalletDashboard = () => {
 
                   <div>
                     <label className="block text-purple-200 text-sm font-medium mb-2">
-                      Amount (VPAY)
+                      Amount (SolanaPay)
                     </label>
                     <input
                       type="number"

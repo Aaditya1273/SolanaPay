@@ -38,7 +38,7 @@ const WalletDashboardPage = () => {
   const [showSendForm, setShowSendForm] = useState(false);
 
   // Contract configuration
-  const VPAY_PAYMENTS_ADDRESS = import.meta.env.REACT_APP_VPAY_PAYMENTS_ADDRESS || '';
+  const SolanaPay_PAYMENTS_ADDRESS = import.meta.env.REACT_APP_SolanaPay_PAYMENTS_ADDRESS || '';
   const PAYMENT_ABI = [
     "function deposit() external payable",
     "function transfer(address to, uint256 amount) external",
@@ -82,9 +82,9 @@ const WalletDashboardPage = () => {
       const ethBal = await provider.getBalance(address);
       setEthBalance(ethers.formatEther(ethBal));
       
-      // Get VPay token balance from contract
-      if (VPAY_PAYMENTS_ADDRESS) {
-        const contract = new ethers.Contract(VPAY_PAYMENTS_ADDRESS, PAYMENT_ABI, provider);
+      // Get SolanaPay token balance from contract
+      if (SolanaPay_PAYMENTS_ADDRESS) {
+        const contract = new ethers.Contract(SolanaPay_PAYMENTS_ADDRESS, PAYMENT_ABI, provider);
         const tokenBal = await contract.balances(address);
         setBalance(ethers.formatEther(tokenBal));
       }
@@ -126,8 +126,8 @@ const WalletDashboardPage = () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       
-      if (VPAY_PAYMENTS_ADDRESS) {
-        const contract = new ethers.Contract(VPAY_PAYMENTS_ADDRESS, PAYMENT_ABI, signer);
+      if (SolanaPay_PAYMENTS_ADDRESS) {
+        const contract = new ethers.Contract(SolanaPay_PAYMENTS_ADDRESS, PAYMENT_ABI, signer);
         const amount = ethers.parseEther(sendForm.amount);
         
         const tx = await contract.transfer(sendForm.recipient, amount);
@@ -142,7 +142,7 @@ const WalletDashboardPage = () => {
         
         alert('Transaction sent successfully!');
       } else {
-        alert('VPay Payments contract not configured');
+        alert('SolanaPay Payments contract not configured');
       }
     } catch (error) {
       console.error('Error sending tokens:', error);
@@ -198,9 +198,9 @@ const WalletDashboardPage = () => {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-white mb-2">
-                Welcome to VPay, Aaditya123! 👋
+                Welcome to SolanaPay, Aaditya123! 👋
               </h1>
-              <p className="text-purple-100">Ready to earn, spend, and grow in the VPay ecosystem?</p>
+              <p className="text-purple-100">Ready to earn, spend, and grow in the SolanaPay ecosystem?</p>
             </div>
             <div className="hidden md:flex items-center space-x-4">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-3">
@@ -227,7 +227,7 @@ const WalletDashboardPage = () => {
                 <Wallet className="w-10 h-10 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-3">Connect Your Wallet</h2>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">Connect your wallet to start sending payments and earning rewards in the VPay ecosystem.</p>
+              <p className="text-gray-600 mb-8 max-w-md mx-auto">Connect your wallet to start sending payments and earning rewards in the SolanaPay ecosystem.</p>
               <button
                 onClick={connectWallet}
                 className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/25 hover:-translate-y-1"
@@ -347,7 +347,7 @@ const WalletDashboardPage = () => {
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Amount (VPAY)
+                        Amount (SolanaPay)
                       </label>
                       <input
                         type="number"
@@ -421,9 +421,9 @@ const WalletDashboardPage = () => {
                   <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl p-6 text-white">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-purple-200 text-sm">VPay Tokens</p>
+                        <p className="text-purple-200 text-sm">SolanaPay Tokens</p>
                         <p className="text-3xl font-bold">{parseFloat(balance).toFixed(2)}</p>
-                        <p className="text-purple-300 text-sm">VPAY</p>
+                        <p className="text-purple-300 text-sm">SolanaPay</p>
                       </div>
                       <Wallet className="w-12 h-12 text-purple-200" />
                     </div>
@@ -472,7 +472,7 @@ const WalletDashboardPage = () => {
                             </div>
                             <div>
                               <p className="font-semibold text-gray-900">
-                                {tx.type === 'send' ? 'Sent' : 'Received'} {tx.amount} VPAY
+                                {tx.type === 'send' ? 'Sent' : 'Received'} {tx.amount} SolanaPay
                               </p>
                               <p className="text-gray-500 text-sm">
                                 {tx.type === 'send' ? 'To' : 'From'}: {formatAddress(tx.to || tx.from || '')}

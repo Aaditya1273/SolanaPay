@@ -25,10 +25,10 @@ export default function Sidebar({ onClose }: SidebarProps) {
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gradient-to-r from-vpay-purple-500 to-vpay-purple-600 rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-to-r from-SolanaPay-purple-500 to-SolanaPay-purple-600 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-sm">V</span>
           </div>
-          <span className="text-lg font-bold">VPay</span>
+          <span className="text-lg font-bold">SolanaPay</span>
         </div>
         {onClose && (
           <Button variant="ghost" size="icon" onClick={onClose}>
@@ -40,7 +40,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
       {/* User Info */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-vpay-purple-100 dark:bg-vpay-purple-900 rounded-full flex items-center justify-center">
+          <div className="w-10 h-10 bg-SolanaPay-purple-100 dark:bg-SolanaPay-purple-900 rounded-full flex items-center justify-center">
             {user?.avatar ? (
               <img
                 src={user.avatar}
@@ -48,7 +48,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
                 className="w-10 h-10 rounded-full object-cover"
               />
             ) : (
-              <User className="h-5 w-5 text-vpay-purple-600 dark:text-vpay-purple-400" />
+              <User className="h-5 w-5 text-SolanaPay-purple-600 dark:text-SolanaPay-purple-400" />
             )}
           </div>
           <div className="flex-1 min-w-0">
@@ -73,7 +73,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
               cn(
                 'flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-vpay-purple-100 dark:bg-vpay-purple-900 text-vpay-purple-700 dark:text-vpay-purple-300'
+                  ? 'bg-SolanaPay-purple-100 dark:bg-SolanaPay-purple-900 text-SolanaPay-purple-700 dark:text-SolanaPay-purple-300'
                   : 'text-muted-foreground hover:text-foreground hover:bg-accent'
               )
             }

@@ -8,10 +8,10 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
 /**
- * @title VPayRewards
- * @dev Loyalty rewards and gamification contract for VPay
+ * @title SolanaPayRewards
+ * @dev Loyalty rewards and gamification contract for SolanaPay
  */
-contract VPayRewards is Ownable, ReentrancyGuard, Pausable {
+contract SolanaPayRewards is Ownable, ReentrancyGuard, Pausable {
     using SafeERC20 for IERC20;
     
     IERC20 public immutable vrcToken;
@@ -80,12 +80,12 @@ contract VPayRewards is Ownable, ReentrancyGuard, Pausable {
     event PointsManagerRemoved(address indexed manager);
     
     modifier onlyPointsManager() {
-        require(pointsManagers[msg.sender], "VPayRewards: not authorized");
+        require(pointsManagers[msg.sender], "SolanaPayRewards: not authorized");
         _;
     }
     
     constructor(address _vrcToken, address initialOwner) Ownable(initialOwner) {
-        require(_vrcToken != address(0), "VPayRewards: invalid token address");
+        require(_vrcToken != address(0), "SolanaPayRewards: invalid token address");
         vrcToken = IERC20(_vrcToken);
         
         // Initialize default achievements
@@ -104,8 +104,8 @@ contract VPayRewards is Ownable, ReentrancyGuard, Pausable {
         uint256 points,
         string calldata reason
     ) external onlyPointsManager whenNotPaused {
-        require(user != address(0), "VPayRewards: invalid user address");
-        require(points > 0, "VPayRewards: points must be positive");
+        require(user != address(0), "SolanaPayRewards: invalid user address");
+        require(points > 0, "SolanaPayRewards: points must be positive");
         
         users[user].points += points;
         users[user].totalEarned += points;
@@ -124,7 +124,7 @@ contract VPayRewards is Ownable, ReentrancyGuard, Pausable {
         User storage user = users[msg.sender];
         uint256 currentDay = block.timestamp / 1 days;
         
-        require(user.lastActivityDay < currentDay, "VPayRewards: already claimed today");
+        require(user.lastActivityDay < currentDay, "SolanaPayRewards: already claimed today");
         
         uint256 points = DAILY_LOGIN_POINTS;
         
@@ -174,7 +174,7 @@ contract VPayRewards is Ownable, ReentrancyGuard, Pausable {
         uint256 stock,
         UserTier minTier
     ) external onlyOwner returns (uint256) {
-        require(pointsCost > 0, "VPayRewards: points cost must be positive");
+        require(pointsCost > 0, "SolanaPayRewards: points cost must be positive");
         
         uint256 rewardId = nextRewardId++;
         
@@ -200,11 +200,11 @@ contract VPayRewards is Ownable, ReentrancyGuard, Pausable {
         Reward storage reward = rewards[rewardId];
         User storage user = users[msg.sender];
         
-        require(reward.isActive, "VPayRewards: reward not active");
-        require(reward.stock > 0, "VPayRewards: reward out of stock");
-        require(user.points >= reward.pointsCost, "VPayRewards: insufficient points");
-        require(user.tier >= reward.minTier, "VPayRewards: tier requirement not met");
-        require(!user.claimedRewards[rewardId], "VPayRewards: reward already claimed");
+        require(reward.isActive, "SolanaPayRewards: reward not active");
+        require(reward.stock > 0, "SolanaPayRewards: reward out of stock");
+        require(user.points >= reward.pointsCost, "SolanaPayRewards: insufficient points");
+        require(user.tier >= reward.minTier, "SolanaPayRewards: tier requirement not met");
+        require(!user.claimedRewards[rewardId], "SolanaPayRewards: reward already claimed");
         
         // Deduct points
         user.points -= reward.pointsCost;
@@ -226,7 +226,7 @@ contract VPayRewards is Ownable, ReentrancyGuard, Pausable {
      * @dev Add points manager
      */
     function addPointsManager(address manager) external onlyOwner {
-        require(manager != address(0), "VPayRewards: invalid manager address");
+        require(manager != address(0), "SolanaPayRewards: invalid manager address");
         pointsManagers[manager] = true;
         emit PointsManagerAdded(manager);
     }
@@ -339,8 +339,8 @@ contract VPayRewards is Ownable, ReentrancyGuard, Pausable {
      * @dev Internal function to unlock achievement
      */
     function _unlockAchievement(address user, string memory achievementId) internal {
-        require(achievements[achievementId].isActive, "VPayRewards: achievement not active");
-        require(!users[user].achievements[achievementId], "VPayRewards: achievement already unlocked");
+        require(achievements[achievementId].isActive, "SolanaPayRewards: achievement not active");
+        require(!users[user].achievements[achievementId], "SolanaPayRewards: achievement already unlocked");
         
         users[user].achievements[achievementId] = true;
         

@@ -18,7 +18,7 @@ export const ChatWindowEnhanced: React.FC<ChatWindowProps> = ({ isOpen, onClose 
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: 'Hello! I\'m your VeryChat assistant. How can I help you with VPay today?',
+      content: 'Hello! I\'m your VeryChat assistant. How can I help you with SolanaPay today?',
       sender: 'assistant',
       timestamp: new Date(),
     },
@@ -185,7 +185,7 @@ export const ChatWindowEnhanced: React.FC<ChatWindowProps> = ({ isOpen, onClose 
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask me anything about VPay..."
+            placeholder="Ask me anything about SolanaPay..."
             className="flex-1 h-10 px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             disabled={isLoading}
           />

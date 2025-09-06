@@ -38,7 +38,7 @@ export const ChatSuggestions: React.FC<ChatSuggestionsProps> = ({
     },
     {
       icon: HelpCircle,
-      text: "What are VPay tokens?",
+      text: "What are SolanaPay tokens?",
       category: "General"
     }
   ];

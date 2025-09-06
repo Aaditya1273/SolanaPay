@@ -141,8 +141,8 @@ export class AIRecommendationService {
     if (user.tier === 'Gold' || user.tier === 'Platinum' || spendingAnalysis.totalSpent > 2000) {
       recommendations.push({
         type: 'NFT',
-        title: 'Exclusive VPay NFT Collection',
-        description: 'Unlock exclusive NFTs based on your VPay activity and tier status',
+        title: 'Exclusive SolanaPay NFT Collection',
+        description: 'Unlock exclusive NFTs based on your SolanaPay activity and tier status',
         value: 150,
         confidence: 0.75,
         reasoning: `${user.tier} tier status and high activity qualifies for exclusive NFT rewards`,
@@ -158,14 +158,14 @@ export class AIRecommendationService {
       const bonusAmount = Math.floor(spendingAnalysis.transactionFrequency * 10);
       recommendations.push({
         type: 'BONUS_TOKENS',
-        title: `${bonusAmount} Bonus VPay Tokens`,
+        title: `${bonusAmount} Bonus SolanaPay Tokens`,
         description: 'Earn bonus tokens for your frequent platform usage',
         value: bonusAmount,
         confidence: 0.9,
         reasoning: `High transaction frequency (${spendingAnalysis.transactionFrequency.toFixed(1)} per day) earns bonus tokens`,
         metadata: {
           tokenAmount: bonusAmount,
-          tokenType: 'VPAY'
+          tokenType: 'SolanaPay'
         }
       });
     }
@@ -193,7 +193,7 @@ export class AIRecommendationService {
       recommendations.push({
         type: 'EXCLUSIVE_ACCESS',
         title: 'VIP Early Access Program',
-        description: 'Get early access to new VPay features and premium services',
+        description: 'Get early access to new SolanaPay features and premium services',
         value: 0,
         confidence: 0.7,
         reasoning: `High reward points (${user.rewardPoints}) qualifies for VIP access`,

@@ -63,7 +63,7 @@ export default function ProfilePage() {
     try {
       setLoading(true)
       setError(null)
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       if (!token) {
         throw new Error('No authentication token found')
       }
@@ -140,7 +140,7 @@ export default function ProfilePage() {
       const formData = new FormData()
       formData.append('avatar', avatarFile)
       
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       const response = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/users/avatar`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -158,7 +158,7 @@ export default function ProfilePage() {
 
   const handleSave = async () => {
     try {
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       if (!token) {
         toast.error('Please log in to update your profile')
         return
@@ -230,7 +230,7 @@ export default function ProfilePage() {
       setNotificationSettings(prev => ({ ...prev, [key]: newValue }))
       
       // Save to backend
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       if (token) {
         await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/user/notifications`, {
           [key]: newValue
@@ -254,7 +254,7 @@ export default function ProfilePage() {
       setAppPreferences(prev => ({ ...prev, [key]: newValue }))
       
       // Save to backend
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       if (token) {
         await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/user/preferences`, {
           [key]: newValue
@@ -277,7 +277,7 @@ export default function ProfilePage() {
       setAppPreferences(prev => ({ ...prev, [key]: value }))
       
       // Save to backend
-      const token = localStorage.getItem('vpay-token')
+      const token = localStorage.getItem('SolanaPay-token')
       if (token) {
         await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/user/preferences`, {
           [key]: value
@@ -592,7 +592,7 @@ export default function ProfilePage() {
               ) : (
                 <div className="text-center py-6">
                   <p className="text-muted-foreground mb-4">No wallet connected</p>
-                  <Button variant="vpay">Connect Wallet</Button>
+                  <Button variant="SolanaPay">Connect Wallet</Button>
                 </div>
               )}
             </CardContent>
@@ -647,7 +647,7 @@ export default function ProfilePage() {
                       <p className="text-sm text-muted-foreground">{setting.description}</p>
                     </div>
                     <Button
-                      variant={isEnabled ? "vpay" : "outline"}
+                      variant={isEnabled ? "SolanaPay" : "outline"}
                       size="sm"
                       onClick={() => toggleNotificationSetting(setting.key as keyof typeof notificationSettings)}
                     >
@@ -682,7 +682,7 @@ export default function ProfilePage() {
                   </div>
                   {setting.type === 'toggle' ? (
                     <Button 
-                      variant={appPreferences[setting.key as keyof typeof appPreferences] ? "vpay" : "outline"} 
+                      variant={appPreferences[setting.key as keyof typeof appPreferences] ? "SolanaPay" : "outline"} 
                       size="sm"
                       onClick={() => togglePreference(setting.key as keyof typeof appPreferences)}
                     >

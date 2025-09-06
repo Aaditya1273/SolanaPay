@@ -91,7 +91,7 @@ const startServer = async () => {
   const tryPort = (port: number): Promise<number> => {
     return new Promise((resolve, reject) => {
       const serverInstance = server.listen(port, () => {
-        logger.info(`🚀 VPay Backend running on port ${port}`)
+        logger.info(`🚀 SolanaPay Backend running on port ${port}`)
         logger.info(`📊 Health check: http://localhost:${port}/health`)
         logger.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`)
         

@@ -226,7 +226,7 @@ const PersonalizedRewards: React.FC = () => {
           </div>
           <h3 className="text-xl font-medium text-gray-800 mb-2">No Recommendations Yet</h3>
           <p className="text-gray-600 mb-6">
-            Start using VPay to receive personalized AI-powered reward recommendations!
+            Start using SolanaPay to receive personalized AI-powered reward recommendations!
           </p>
           <button
             onClick={refreshRecommendations}

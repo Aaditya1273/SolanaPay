@@ -13,7 +13,7 @@ const config = {
 };
 
 async function testGamificationEndpoints() {
-  console.log('🎮 Testing VPay Gamification API Endpoints...\n');
+  console.log('🎮 Testing SolanaPay Gamification API Endpoints...\n');
 
   try {
     // Test Quest endpoints
@@ -113,7 +113,7 @@ async function testServerConnection() {
 }
 
 async function runTests() {
-  console.log('🚀 Starting VPay Gamification Tests...\n');
+  console.log('🚀 Starting SolanaPay Gamification Tests...\n');
   
   const serverOnline = await testServerConnection();
   if (serverOnline) {

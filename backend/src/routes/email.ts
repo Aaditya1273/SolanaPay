@@ -87,13 +87,13 @@ router.post('/send-verification-otp',
       const emailHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; text-align: center;">
-            <h1 style="color: white; margin: 0;">VPay</h1>
+            <h1 style="color: white; margin: 0;">SolanaPay</h1>
             <p style="color: white; margin: 5px 0;">Web3 Micro-Economy Platform</p>
           </div>
           <div style="padding: 30px; background: white;">
             <h2 style="color: #333;">Email Verification Required</h2>
             <p style="color: #666; font-size: 16px;">
-              Welcome to VPay! Please verify your email address to complete your registration.
+              Welcome to SolanaPay! Please verify your email address to complete your registration.
             </p>
             <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0;">
               <p style="color: #333; margin-bottom: 10px;">Your verification code is:</p>
@@ -106,14 +106,14 @@ router.post('/send-verification-otp',
               <p style="color: #666; font-size: 14px; margin: 0;">
                 <strong>Security Tips:</strong><br>
                 • Never share this code with anyone<br>
-                • VPay will never ask for your password via email<br>
+                • SolanaPay will never ask for your password via email<br>
                 • If you suspect suspicious activity, contact our support team
               </p>
             </div>
           </div>
           <div style="padding: 20px; text-align: center; background: #f8f9fa;">
             <p style="color: #666; font-size: 12px; margin: 0;">
-              2024 VPay. All rights reserved.
+              2024 SolanaPay. All rights reserved.
             </p>
           </div>
         </div>
@@ -131,9 +131,9 @@ router.post('/send-verification-otp',
         const transporter = createTransporter()
         if (transporter) {
           await transporter.sendMail({
-            from: `"VPay" <${process.env.SMTP_USER}>`,
+            from: `"SolanaPay" <${process.env.SMTP_USER}>`,
             to: email,
-            subject: 'VPay Email Verification - OTP Code',
+            subject: 'SolanaPay Email Verification - OTP Code',
             html: emailHtml,
           })
           console.log(` Email sent successfully to ${email}`)
@@ -280,19 +280,19 @@ router.post('/send-reset-otp',
       } else {
         // Production mode - send actual email
         const mailOptions = {
-          from: process.env.SMTP_FROM || 'noreply@vpay.com',
+          from: process.env.SMTP_FROM || 'noreply@SolanaPay.com',
           to: email,
-          subject: 'VPay Password Reset - OTP Code',
+          subject: 'SolanaPay Password Reset - OTP Code',
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
               <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; text-align: center;">
-                <h1 style="color: white; margin: 0;">VPay</h1>
+                <h1 style="color: white; margin: 0;">SolanaPay</h1>
                 <p style="color: white; margin: 5px 0;">Web3 Micro-Economy Platform</p>
               </div>
               <div style="padding: 30px; background: #f9f9f9;">
                 <h2 style="color: #333;">Password Reset Request</h2>
                 <p style="color: #666; font-size: 16px;">
-                  We received a request to reset your VPay account password.
+                  We received a request to reset your SolanaPay account password.
                 </p>
                 <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0;">
                   <p style="color: #333; margin-bottom: 10px;">Your password reset code is:</p>
@@ -303,7 +303,7 @@ router.post('/send-reset-otp',
                 </p>
                 <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
                   <p style="color: #999; font-size: 12px; text-align: center;">
-                    © 2024 VPay. All rights reserved.
+                    © 2024 SolanaPay. All rights reserved.
                   </p>
                 </div>
               </div>

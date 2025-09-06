@@ -11,8 +11,8 @@ const prisma = new PrismaClient()
 // Ramp Network configuration
 const RAMP_CONFIG = {
   hostApiKey: process.env.RAMP_HOST_API_KEY,
-  hostLogoUrl: process.env.RAMP_HOST_LOGO_URL || 'https://vpay.com/logo.png',
-  hostAppName: 'VPay',
+  hostLogoUrl: process.env.RAMP_HOST_LOGO_URL || 'https://SolanaPay.com/logo.png',
+  hostAppName: 'SolanaPay',
   webhookSecret: process.env.RAMP_WEBHOOK_SECRET,
   baseUrl: process.env.NODE_ENV === 'production' 
     ? 'https://api.ramp.network' 
@@ -125,7 +125,7 @@ router.post('/initiate',
         where: { id: onrampTransaction.id },
         data: {
           rampUrl: rampUrl.toString(),
-          externalId: `vpay_${onrampTransaction.id}_${Date.now()}`
+          externalId: `SolanaPay_${onrampTransaction.id}_${Date.now()}`
         }
       })
 

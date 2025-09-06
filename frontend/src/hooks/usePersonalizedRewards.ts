@@ -42,7 +42,7 @@ export const usePersonalizedRewards = () => {
   const [error, setError] = useState<string | null>(null);
 
   const getAuthHeaders = () => {
-    const token = localStorage.getItem('vpay-token');
+    const token = localStorage.getItem('SolanaPay-token');
     return token ? { Authorization: `Bearer ${token}` } : {};
   };
 

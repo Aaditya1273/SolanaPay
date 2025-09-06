@@ -47,7 +47,7 @@ const StreakTracker: React.FC = () => {
     try {
       const response = await fetch('/api/streaks', {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         }
       });
       const data = await response.json();
@@ -67,7 +67,7 @@ const StreakTracker: React.FC = () => {
     try {
       const response = await fetch(`/api/streaks/history/${type}?days=30`, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('vpay-token')}`
+          'Authorization': `Bearer ${localStorage.getItem('SolanaPay-token')}`
         }
       });
       const data = await response.json();

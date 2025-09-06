@@ -13,7 +13,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     // Check localStorage first
-    const saved = localStorage.getItem('vpay-theme')
+    const saved = localStorage.getItem('SolanaPay-theme')
     if (saved === 'light' || saved === 'dark') {
       return saved
     }
@@ -22,7 +22,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   })
 
   useEffect(() => {
-    localStorage.setItem('vpay-theme', theme)
+    localStorage.setItem('SolanaPay-theme', theme)
     
     // Update document class
     const root = document.documentElement
