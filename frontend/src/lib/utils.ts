@@ -9,7 +9,23 @@ export function formatCurrency(amount: number, currency = 'VRC'): string {
   return `${amount.toFixed(2)} ${currency}`
 }
 
-export function formatAddress(address: string): string {
+export async function formatAddress(address: string): Promise<string> {
+  if (!address) return ''
+  
+  // Try to resolve SNS domain first
+  try {
+    const { snsService } = await import('../services/snsService')
+    const displayName = await snsService.formatDisplayName(address)
+    return displayName
+  } catch (error) {
+    console.error('Error resolving SNS:', error)
+    // Fallback to truncated address
+    return `${address.slice(0, 6)}...${address.slice(-4)}`
+  }
+}
+
+// Synchronous version for backwards compatibility
+export function formatAddressSync(address: string): string {
   if (!address) return ''
   return `${address.slice(0, 6)}...${address.slice(-4)}`
 }

@@ -46,6 +46,8 @@ import MerchantSettlementDashboard from './components/settlements/MerchantSettle
 import ComplianceDashboard from './components/compliance/ComplianceDashboard'
 import SolanaPayDashboard from './pages/payments/SolanaPayDashboard'
 import CrossChainBridge from './components/bridge/CrossChainBridge'
+import CoffeeShopDemo from './components/demos/CoffeeShopDemo'
+import NGOVolunteerDemo from './components/demos/NGOVolunteerDemo'
 
 // Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -323,6 +325,22 @@ function App() {
         <ProtectedRoute>
           <Layout>
             <CrossChainBridge />
+          </Layout>
+        </ProtectedRoute>
+      } />
+
+      <Route path="/demo/coffee" element={
+        <ProtectedRoute>
+          <Layout>
+            <CoffeeShopDemo />
+          </Layout>
+        </ProtectedRoute>
+      } />
+
+      <Route path="/demo/ngo" element={
+        <ProtectedRoute>
+          <Layout>
+            <NGOVolunteerDemo />
           </Layout>
         </ProtectedRoute>
       } />

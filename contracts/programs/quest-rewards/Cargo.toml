@@ -1,0 +1,27 @@
+[package]
+name = "quest-rewards"
+version = "0.1.0"
+description = "Quest tracking, streak management, and compressed NFT rewards system"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "quest_rewards"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = "0.28.0"
+anchor-spl = "0.28.0"
+spl-token = "3.5.0"
+spl-associated-token-account = "1.1.2"
+mpl-token-metadata = "1.13.2"
+mpl-bubblegum = "0.7.0"
+spl-account-compression = "0.2.0"
+spl-noop = "0.2.0"
+solana-program = "1.16.0"
