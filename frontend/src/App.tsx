@@ -5,6 +5,7 @@ import { ChatProvider } from './contexts/ChatContext'
 // import { DIDProvider } from './contexts/DIDContext';
 // import { SBTProvider } from './contexts/SBTContext'
 import { RealTimeChatProvider } from './contexts/RealTimeChatContext'
+import SolanaWalletContext from './contexts/SolanaWalletContext'
 import Layout from './components/layout/Layout'
 
 // Simple loading component
@@ -43,6 +44,8 @@ import MessagesPage from './pages/MessagesPage'
 import OnrampSettlementDashboard from './components/dashboard/OnrampSettlementDashboard'
 import MerchantSettlementDashboard from './components/settlements/MerchantSettlementDashboard'
 import ComplianceDashboard from './components/compliance/ComplianceDashboard'
+import SolanaPayDashboard from './pages/payments/SolanaPayDashboard'
+import CrossChainBridge from './components/bridge/CrossChainBridge'
 
 // Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -68,11 +71,12 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 
 function App() {
   return (
-    <ChatProvider>
-      {/* <DIDProvider> */}
-        {/* <SBTProvider> */}
-          <RealTimeChatProvider>
-            <Routes>
+    <SolanaWalletContext>
+      <ChatProvider>
+        {/* <DIDProvider> */}
+          {/* <SBTProvider> */}
+            <RealTimeChatProvider>
+              <Routes>
       {/* Public Routes */}
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={
@@ -306,13 +310,31 @@ function App() {
         </ProtectedRoute>
       } />
 
+      
+      <Route path="/solanapay" element={
+        <ProtectedRoute>
+          <Layout>
+            <SolanaPayDashboard />
+          </Layout>
+        </ProtectedRoute>
+      } />
+
+      <Route path="/bridge" element={
+        <ProtectedRoute>
+          <Layout>
+            <CrossChainBridge />
+          </Layout>
+        </ProtectedRoute>
+      } />
+
       {/* Catch all route */}
       <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </RealTimeChatProvider>
-        {/* </SBTProvider> */}
-      {/* </DIDProvider> */}
-    </ChatProvider>
+              </Routes>
+            </RealTimeChatProvider>
+          {/* </SBTProvider> */}
+        {/* </DIDProvider> */}
+      </ChatProvider>
+    </SolanaWalletContext>
   )
 }
 

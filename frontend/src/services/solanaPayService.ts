@@ -1,6 +1,6 @@
 import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID } from '@solana/spl-token'
-import { Program, AnchorProvider, web3, BN, Idl } from '@project-serum/anchor'
+import { Program, AnchorProvider, web3, BN, Idl } from '@coral-xyz/anchor'
 import { encodeURL, createQR } from '@solana/pay'
 import BigNumber from 'bignumber.js'
 
