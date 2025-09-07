@@ -48,6 +48,7 @@ import SolanaPayDashboard from './pages/payments/SolanaPayDashboard'
 import CrossChainBridge from './components/bridge/CrossChainBridge'
 import CoffeeShopDemo from './components/demos/CoffeeShopDemo'
 import NGOVolunteerDemo from './components/demos/NGOVolunteerDemo'
+import CommunityLeaderboard from './pages/CommunityLeaderboard'
 
 // Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -341,6 +342,14 @@ function App() {
         <ProtectedRoute>
           <Layout>
             <NGOVolunteerDemo />
+          </Layout>
+        </ProtectedRoute>
+      } />
+
+      <Route path="/community" element={
+        <ProtectedRoute>
+          <Layout>
+            <CommunityLeaderboard />
           </Layout>
         </ProtectedRoute>
       } />
