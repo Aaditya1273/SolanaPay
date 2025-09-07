@@ -1,15 +1,21 @@
-# SolanaPay - Web3 Micro-Economy Platform
+# 🚀 SolanaPay - Web3 Payment & Rewards Platform
 
-SolanaPay is a comprehensive Web3 micro-economy platform that enables instant payments, task completion rewards, and loyalty programs within the Very Network ecosystem. Built with React, Node.js, and Solidity smart contracts, featuring integrated VeryChat AI assistant for intelligent user support and real KYC verification system.
+SolanaPay is a next-generation payment and rewards platform built on Solana, enabling seamless fiat-to-crypto on/off ramps, secure transactions, and innovative loyalty programs. Featuring Circle API integration, KYC verification, and cross-chain compatibility, SolanaPay provides a complete Web3 payment solution for merchants and consumers.
 
-## 🚀 Key Features
+## 🌟 Key Features
 
-### 💰 Payment System
-- **Instant VRC Payments**: Send and receive VRC tokens with minimal fees
-- **Multi-chain Support**: Cross-chain compatibility with major networks
-- **Merchant Payments**: Business-to-business payment solutions
-- **Account Abstraction**: Gasless transactions with ERC-4337 support
-- **Real-time Settlement**: Instant payment confirmation and settlement
+### 💸 Fiat On/Off Ramp
+- **Instant Fiat Conversion**: Seamless USD to USDC conversion
+- **Circle API Integration**: Secure and compliant fiat processing
+- **Low Fees**: Competitive 1% transaction fee
+- **Multiple Payment Methods**: Credit card and bank transfer support
+- **Real-time Settlement**: Instant USDC minting and redemption
+
+### 🔐 KYC & Security
+- **Soulbound KYC NFTs**: On-chain identity verification
+- **Merchant Verification**: Business KYC for payment processors
+- **Secure Wallet Integration**: Web3Auth with social login
+- **Multi-signature Transactions**: Enhanced security for large transfers
 
 ### 💼 Task Marketplace
 - **Micro-task Platform**: Find and post small tasks for quick earnings
@@ -33,12 +39,12 @@ SolanaPay is a comprehensive Web3 micro-economy platform that enables instant pa
 - **Data Encryption**: End-to-end encryption for sensitive data
 - **Smart Contract Audits**: Professionally audited contract code
 
-### 🤖 VeryChat AI Integration
-- **Contextual Support**: AI assistant with VPay-specific knowledge
-- **Real-time Streaming**: Live chat responses with typing indicators
-- **Intent Recognition**: Understands user needs and provides relevant help
-- **24/7 Availability**: Always-on intelligent support
-- **Cost-optimized**: Efficient API usage with smart caching
+### 🏪 Merchant Tools
+- **Payment Processing**: Easy integration for online stores
+- **Loyalty Programs**: Customizable reward systems
+- **Analytics Dashboard**: Real-time sales and customer insights
+- **Plugin Support**: Shopify and WooCommerce plugins
+- **Smart Contract Integration**: Deploy custom reward logic
 
 ### 🏆 Gamification & Social
 - **Soulbound Tokens (SBTs)**: Non-transferable achievement NFTs
@@ -48,61 +54,77 @@ SolanaPay is a comprehensive Web3 micro-economy platform that enables instant pa
 - **Quest System**: Guided tasks and challenges
 
 
-## 🤖 VeryChat AI Assistant Integration
+## 📚 Documentation
 
-SolanaPay features an intelligent AI assistant powered by VeryChat that provides contextual help and support for all platform features.
+### Smart Contract Architecture
 
-### VeryChat API Key Setup
+#### Fiat Bridge
+- **Program ID**: `FiatBridge1111111111111111111111111111111111111`
+- **Features**:
+  - Fiat to USDC conversion
+  - Automated fee distribution
+  - Transaction tracking
+  - Reward pool allocation
 
-1. **Obtain API Key**: Get your VeryChat API key from [VeryChat Dashboard](https://dashboard.verychat.ai)
+#### Merchant Rewards
+- **Program ID**: `MerchantRewards11111111111111111111111111111`
+- **Features**:
+  - Loyalty point system
+  - Reward distribution
+  - Tier-based benefits
+  - Analytics integration
 
-2. **Configure Environment**: Add your API key to the frontend `.env` file:
-   ```env
-   VITE_VERYCHAT_API_KEY=your_actual_api_key_here
-   ```
+#### KYC Verification
+- **Program ID**: `KYCVerification11111111111111111111111111111`
+- **Features**:
+  - Identity verification
+  - Soulbound NFT issuance
+  - Privacy-preserving checks
+  - Cross-chain compatibility
 
-3. **Verify Setup**: The chat assistant will appear as a floating button in the bottom-right corner
+### API Reference
 
-### Efficient VeryChat Usage
+#### Fiat Operations
+- `POST /api/fiat/deposit` - Initiate fiat deposit
+- `POST /api/fiat/withdraw` - Request fiat withdrawal
+- `GET /api/fiat/status/:txId` - Check transaction status
 
-#### **Smart Context Enhancement**
-- **SolanaPay-Specific Prompts**: The assistant is pre-configured with SolanaPay context for accurate responses
-- **Intent Detection**: Automatically detects user intent (wallet, payments, tasks, rewards)
-- **Contextual Responses**: Provides relevant help based on current page and user actions
+#### Merchant Endpoints
+- `POST /api/merchant/register` - Register new merchant
+- `GET /api/merchant/analytics` - Get merchant analytics
+- `POST /api/merchant/rewards/issue` - Issue loyalty rewards
 
-#### **Optimized API Calls**
-```typescript
-// Efficient streaming implementation
-const streamResponse = async (message: string) => {
-  const response = await fetch(`${VITE_VERYCHAT_API_URL}/chat/stream`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${VITE_VERYCHAT_API_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      message: enhanceWithSolanaPayContext(message),
-      stream: true,
-      model: 'verychat-pro'
-    })
-  });
-  
-  // Process streaming response for real-time updates
-  const reader = response.body?.getReader();
-  // ... streaming logic
-};
-```
-### VeryChat Integration Benefits
-
-1. **Reduced Support Load**: AI handles 80%+ of common questions
-2. **Improved UX**: Instant help without leaving the app
-3. **Contextual Assistance**: Knows exactly what users are trying to do
-4. **24/7 Availability**: Always-on support for global users
-5. **Cost Efficient**: Streaming responses and smart caching minimize API costs
+#### KYC Endpoints
+- `POST /api/kyc/verify` - Submit KYC documents
+- `GET /api/kyc/status/:userId` - Check verification status
+- `POST /api/kyc/webhook` - Webhook for verification updates
 
 ##
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
+
+### Smart Contracts
+- **Fiat Bridge**: Handles fiat-to-crypto conversions and fee distribution
+- **Merchant Rewards**: Manages loyalty programs and reward distribution
+- **KYC Verification**: On-chain identity verification with SBTs
+- **Escrow System**: Secure transaction handling with dispute resolution
+
+### Frontend
+- **React + TypeScript**: Modern, responsive UI
+- **Wallet Integration**: Support for Phantom, Solflare, and more
+- **Real-time Updates**: Live transaction tracking
+- **Fiat On/Off Ramp**: User-friendly interface for fiat transactions
+
+### Backend
+- **Node.js + Express**: High-performance API server
+- **WebSockets**: Real-time notifications
+- **Database**: PostgreSQL with Prisma ORM
+- **Circle API**: Fiat processing integration
+
+### Monitoring & Analytics
+- **Transaction Tracking**: Real-time monitoring
+- **Performance Metrics**: System health and usage statistics
+- **Alerting**: Instant notifications for critical events
 
 ### System Overview
 
@@ -146,6 +168,59 @@ graph TB
     SC --> IPFS
     API --> ORACLES
 ```
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- Rust (for smart contract development)
+- Solana CLI
+- Yarn or npm
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-org/solanapay.git
+   cd solanapay
+   ```
+
+2. **Install dependencies**
+   ```bash
+   # Install root dependencies
+   yarn
+   
+   # Install frontend dependencies
+   cd frontend
+   yarn
+   
+   # Install contract dependencies
+   cd ../contracts
+   yarn
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Update the environment variables in .env
+   ```
+
+4. **Deploy smart contracts**
+   ```bash
+   cd contracts
+   ./scripts/deploy-devnet.sh
+   ```
+
+5. **Start development servers**
+   ```bash
+   # Start backend
+   cd ../backend
+   yarn dev
+   
+   # In a new terminal, start frontend
+   cd ../frontend
+   yarn dev
+   ```
+
 ## 📊 Workflow Diagrams
 
 ### User Onboarding Flow
