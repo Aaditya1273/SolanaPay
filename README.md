@@ -1,5 +1,5 @@
 # 🚀 SolanaPay - Web3 Payment & Rewards Platform
-
+>
 SolanaPay is a next-generation payment and rewards platform built on Solana, enabling seamless fiat-to-crypto on/off ramps, secure transactions, and innovative loyalty programs. Featuring Circle API integration, KYC verification, and cross-chain compatibility, SolanaPay provides a complete Web3 payment solution for merchants and consumers.
 
 ## 🌟 Key Features
